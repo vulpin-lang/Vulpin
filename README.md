@@ -2,6 +2,9 @@
 **Vulpin** is a tiny, *single character command scripting language* that runs on top of **Python** :)🦊!  
 It was designed to let you ***write the smallest possible programs*** while still having full programming power! ;)
 
+![GitHub stars](https://shields.io/github/stars/Bat-Script/Vulpin)
+![Last Commit](https://img.shields.io/github/last-commit/Bat-Script/Vulpin)
+
 # 📦 Installition
 
 
