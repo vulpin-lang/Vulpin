@@ -32,39 +32,39 @@ If you run `python vul.py` without a filename, it will try to execute `app.vul` 
 
 ## 📋🦊 Command Reference
 
-| Char | Name | Syntax | Description |
-|------|------|--------|-------------|
-| `G` | Print | `G expr` | Print with newline |
-| `P` | Print (no nl) | `P expr` | Print without newline |
-| `=` | Assign | `var=expr` | Direct assignment (no command letter) |
-| `A` | Arithmetic assign | `A"var"op expr` | `var = var op expr` |
-| `S` | String replace | `S"var""old""new"` | Replace substring |
-| `D` | Delay / Delete | `D seconds` / `D"var"` | Wait or delete a variable |
-| `K` | Input | `K"var""prompt""type"` | Read from keyboard (with optional type) |
-| `X` | Execute file | `X"file.py"` | Run a Python file in the background |
-| `Q` | Quit | `Q` | Exit the program |
-| `E` | Error exit | `E"msg"` | Print error and exit |
-| `U` | Import | `U"module"` | Import a Python module or `.vul` file |
-| `?` | If / Cond jump | `? cond` / `? cond J label` | Conditional execution |
-| `:` | Else | `:` | Else clause |
-| `;` | Endif | `;` | End if block |
-| `@` | While | `@ cond` | Start while loop |
-| `&` | Wend / End for | `&` | End loop |
-| `O` | For‑range | `O var start end [step]` | Counted loop |
-| `L` | Label | `L name` | Define a jump label |
-| `J` | Jump | `J label` | Unconditional jump |
-| `F` | Function | `F name(params)` | Define a function |
-| `R` | Return | `R expr` | Return from function |
-| `~` | End function | `~` | End function body |
-| `T` | Try | `T` | Start try block |
-| `C` | Catch | `C` / `C"var"` | Catch exception |
-| `Y` | End try | `Y` | End try/catch |
-| `W` | Switch | `W expr` | Start switch block |
-| `V` | Case | `V value` | Case in switch |
-| `N` | Default | `N` | Default case |
-| `Z` | End switch | `Z` | End switch block |
-| `!` | Python exec | `! code` | Execute raw Python (multi‑line possible) |
-| `#` | Comment | `# text` | Inline comment |
+| Char | Name              | Syntax                      | Description                          |
+|------|-------------------|-----------------------------|--------------------------------------|
+| `G`  | Print             | `G expr`                    | Print expression with newline        |
+| `P`  | Print (no nl)     | `P expr`                    | Print expression without newline     |
+| `=`  | Assign            | `var=expr`                  | Direct variable assignment           |
+| `A`  | Arithmetic assign | `A"var"op expr`             | `var = var op expr`                  |
+| `S`  | String replace    | `S"var""old""new"`          | Replace substring in variable        |
+| `D`  | Delay / Delete    | `D seconds` / `D"var"`      | Wait or delete a variable            |
+| `K`  | Input             | `K"var""prompt""type"`      | Read input from keyboard             |
+| `X`  | Execute file      | `X"file.py"`                | Run Python file in background        |
+| `Q`  | Quit              | `Q`                         | Exit the program                     |
+| `E`  | Error exit        | `E"msg"`                    | Print error message and exit         |
+| `U`  | Import            | `U"module"`                 | Import Python module or `.vul` file  |
+| `?`  | If / Cond jump    | `? cond` / `? cond J label` | Conditional execution                |
+| `:`  | Else              | `:`                         | Else clause                          |
+| `;`  | Endif             | `;`                         | End if block                         |
+| `@`  | While             | `@ cond`                    | Start while loop                     |
+| `&`  | Wend / End for    | `&`                         | End loop                             |
+| `O`  | For‑range         | `O var start end [step]`    | Counted loop                         |
+| `L`  | Label             | `L name`                    | Define a jump label                  |
+| `J`  | Jump              | `J label`                   | Unconditional jump                   |
+| `F`  | Function          | `F name(params)`            | Define a function                    |
+| `R`  | Return            | `R expr`                    | Return from function                 |
+| `~`  | End function      | `~`                         | End function body                    |
+| `T`  | Try               | `T`                         | Start try block                      |
+| `C`  | Catch             | `C` / `C"var"`              | Catch exception                      |
+| `Y`  | End try           | `Y`                         | End try/catch block                  |
+| `W`  | Switch            | `W expr`                    | Start switch block                   |
+| `V`  | Case              | `V value`                   | Case in switch                       |
+| `N`  | Default           | `N`                         | Default case                         |
+| `Z`  | End switch        | `Z`                         | End switch block                     |
+| `!`  | Python exec       | `! code`                    | Execute raw Python code              |
+| `#`  | Comment           | `# text`                    | Inline comment                       |
 
 *Bruh :/ This doesnt look's like command reference of ASM :/ if you think, damn! learn ASM ;-;*
 
@@ -399,7 +399,7 @@ vulbuild --os all --cross --package zip tar.gz appimage dmg
 ---
 # TroubleShooting💫
 
-Let's fix your **problem's**!
+Let's fix your **problems**!
 
 - Python Type Hint Syntax Error:
   this is known error in new Vulpin version like you can see it at most in version ```0.5``` but thats easy to fix!
@@ -421,8 +421,6 @@ CHECK OUT LICENCE. :D
 
 **Happy coding with Vulpin!**
 
-*Actually vulpin word comes from Vulpes and Vulpes are so cute and i was take a look at vulpes and I saw that they have rainbow eyes and light eyes but they was escaping from me :(*
-
-***
-We all learn from animals and nature :D . We should support all animals. The fox is not extinct, but why not? If we don't pay attention, it will become extinct too. :(
+Actually, the word "vulpin" comes from Vulpes. Vulpes are so cute! I was taking a look at them and saw that they have rainbow colored eyes and light eyes! but they were escaping from me. :(
+We all learn from animals and nature :D We should support all animals. The fox is not extinct yet, but it could be. If we don't pay attention, it will become extinct too. :(
 ***
