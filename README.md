@@ -406,7 +406,7 @@ Let's fix your **problems**!
   - on ***vulpin 0.5*** this error might be in line of ```682``` or line of ```77``` or etc...!
     take a look at here to see how to fix: https://github.com/orgs/community/discussions/199748
 ---
-## 📝 Some of the *notes* that I gonna say...
+## 📝 Some of the *notes*
 
 - **Spaces** are optional after commands. `G"Hi"` and `G "Hi"` both work.
 - **All commands are case‑sensitive** – only uppercase for the command letters <mark>(except `!`, `=`, `#`</mark>).
