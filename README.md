@@ -83,15 +83,22 @@ If you run `python vul.py` without a filename, it will try to execute `app.vul` 
 ## Basic Syntax
 <img width="50" height="50" alt="basic syntax" src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" />
 
-### Output
-<img width="50" height="50" alt="output" src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" />
-
 
 ```vul
+name="Armin"
 G"Hello"           # Prints with newline
 P"Loading..."      # Prints without newline
 G 5 + 3            # Prints 8
 G $name            # Prints value of variable name
+```
+
+### Output
+<img width="50" height="50" alt="output" src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" />
+
+```text
+Hello
+Loading...8
+Armin
 ```
 
 ### Input
