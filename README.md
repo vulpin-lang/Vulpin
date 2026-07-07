@@ -101,7 +101,10 @@ Loading...8
 Armin
 ```
 
+---
+
 ### Input
+<img width="50" height="50" alt="input" src="https://github.com/user-attachments/assets/7484cff7-978c-4369-969e-18ec06510231" />
 
 ```vul
 K"user""Your name: "
