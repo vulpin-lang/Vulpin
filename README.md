@@ -129,6 +129,8 @@ K"letter""Guess: ""L"   # Single letter (default "")
 | `A` | Letters + spaces | `""` |
 | `P` | Alphanumeric + spaces | `""` |
 
+---
+
 ### Variables
 <img width="50" height="50" alt="vars" src="https://github.com/user-attachments/assets/cad50866-c2d4-477f-9a03-e0e2c7648269" />
 
@@ -179,7 +181,9 @@ U"mylib.vul"    # execute another Vul file
 
 ---
 
-## 🪻🎛️🦊 Control Flow
+## Control Flow
+<img width="50" height="63" alt="control flow" src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" />
+
 
 ### `?` / `:` / `;` – If / Else
 
