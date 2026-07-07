@@ -1,4 +1,7 @@
+<img width="640" height="320" alt="bn" src="https://github.com/user-attachments/assets/507f577f-9567-42cf-b232-c7811c200aa6" />
+
 # Vulpin
+
 **Vulpin** is a tiny, *single character command scripting language* that runs on top of **Python** :)🦊!  
 It was designed to let you ***write the smallest possible programs*** while still having full programming power! ;)
 
