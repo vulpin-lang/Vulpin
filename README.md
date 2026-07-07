@@ -20,7 +20,9 @@ It was designed to let you ***write the smallest possible programs*** while stil
 
 <br>
 
-## 🌠 Quick Start
+## Quick Start
+<img width="50" height="50" alt="Quick Start" src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" />
+
 1. **Create a `.vul` file**. Like `hello.vul`:
    ```vul
    G "Hello from Vul!"
