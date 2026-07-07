@@ -412,10 +412,12 @@ Let's fix your **problems**!
   - on ***vulpin 0.5*** this error might be in line of ```682``` or line of ```77``` or etc...!
     take a look at here to see how to fix: https://github.com/orgs/community/discussions/199748
 ---
-## 📝 Some of the *notes*
+
+## Some of the *notes*
+<img width="50" height="50" alt="sotn" src="https://github.com/user-attachments/assets/64a4c9c6-0d14-4227-bb4c-4b53892c658b" />
 
 - **Spaces** are optional after commands. `G"Hi"` and `G "Hi"` both work.
-- **All commands are case‑sensitive** – only uppercase for the command letters <mark>(except `!`, `=`, `#`</mark>).
+- **All commands are case‑sensitive** – only uppercase for the command letters <mark>(except `!`, `=`, `#`)</mark>.
 - **The dot operator** (like `$os.name`) works correctly in the latest release. If you encounter issues, use the `--debug` flag to see detailed parser output.
 
 ---
