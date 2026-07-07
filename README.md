@@ -8,8 +8,9 @@ It was designed to let you ***write the smallest possible programs*** while stil
 ![GitHub stars](https://shields.io/github/stars/Bat-Script/Vulpin)
 ![Last Commit](https://img.shields.io/github/last-commit/Bat-Script/Vulpin)
 
-# 📦 Installition
+# Installition
 
+<img width="50" height="50" alt="instalition" src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" />
 
 * Download ***Vulpin*** from **github** or using the gitclone and some of the stuff...
 
