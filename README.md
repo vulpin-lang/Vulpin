@@ -129,7 +129,9 @@ K"letter""Guess: ""L"   # Single letter (default "")
 | `A` | Letters + spaces | `""` |
 | `P` | Alphanumeric + spaces | `""` |
 
-### 📦🦊 Variables
+### Variables
+<img width="50" height="50" alt="vars" src="https://github.com/user-attachments/assets/cad50866-c2d4-477f-9a03-e0e2c7648269" />
+
 
 ```vul
 x=10               # Direct assignment
@@ -149,7 +151,8 @@ D"y"               # Delete variable
 | `.T` | `title()` | `"hi there".T` → `"Hi There"` |
 | `.C` | `capitalize()` | `"hello".C` → `"Hello"` |
 
-### ⏱️🦊 Delay
+### Delay
+<img width="50" height="50" alt="delay" src="https://github.com/user-attachments/assets/4ffc9f00-dfca-48ed-99f5-c17fe37a2fde" />
 
 ```vul
 D1          # wait 1 second
@@ -157,7 +160,11 @@ D0.5        # wait 0.5 seconds
 D $delay    # wait the value of variable
 ```
 
-### 📚🦊🎁📦 Imports
+---
+
+### Imports
+<img width="50" height="50" alt="modules" src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" />
+
 
 ```vul
 U"os"
