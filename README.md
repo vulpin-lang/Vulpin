@@ -39,7 +39,8 @@ If you run `python vul.py` without a filename, it will try to execute `app.vul` 
 > ```G"Hello World"```
 ---
 
-## 📋🦊 Command Reference
+## Command Reference
+<img width="50" height="50" alt="command" src="https://github.com/user-attachments/assets/4ede23ff-99d4-451f-b06c-399b6d87512c" />
 
 | Char | Name              | Syntax                      | Description                          |
 |------|-------------------|-----------------------------|--------------------------------------|
