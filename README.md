@@ -28,7 +28,7 @@ It was designed to let you ***write the smallest possible programs*** while stil
 
 If you run `python vul.py` without a filename, it will try to execute `app.vul` in the current directory!
 > [!TIP]
-> You can remove spaces in your app! dont worry about it! Because if you do that you can build your smalest program like this:
+> You can remove spaces in your app! dont worry about it! Because if you do that you can build your smallest program like this:
 >
 > ```G"Hello World"```
 ---
