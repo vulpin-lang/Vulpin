@@ -201,7 +201,7 @@ score=85
 ```
 
 ### Conditional Jump
-<img width="50" height="50" alt="jump" src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" />
+<img width="43" height="50" alt="jump" src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" />
 
 ```vul
 x=5
@@ -212,7 +212,7 @@ G"Printed"
 ```
 
 ### While Loop
-<img width="50" height="50" alt="while" src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" />
+<img width="43" height="50" alt="while" src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" />
 
 ```vul
 i=0
@@ -231,8 +231,8 @@ i=0
 &
 ```
 
-### For‑Range Loop 🏌️🦊
-<img width="205" height="208" alt="for range" src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" />
+### For‑Range Loop
+<img width="50" height="50" alt="for range" src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" />
 
 ```vul
 O i 0 5            # 0,1,2,3,4
