@@ -1,27 +1,26 @@
-<img width="640" height="320" alt="bn" src="https://github.com/user-attachments/assets/507f577f-9567-42cf-b232-c7811c200aa6" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/507f577f-9567-42cf-b232-c7811c200aa6" width="100%" alt="Vulpin Banner">
+</p>
 
 # Vulpin
 
 **Vulpin** is a tiny, *single character command scripting language* that runs on top of **Python** :)🦊!  
 It was designed to let you ***write the smallest possible programs*** while still having full programming power! ;)
 
-![GitHub stars](https://shields.io/github/stars/Bat-Script/Vulpin)
-![Last Commit](https://img.shields.io/github/last-commit/Bat-Script/Vulpin)
+<p align="center">
+  <img src="https://img.shields.io/github/stars/Bat-Script/Vulpin?style=social" alt="GitHub stars">
+  <img src="https://img.shields.io/github/last-commit/Bat-Script/Vulpin" alt="Last Commit">
+</p>
 
-# Installition
-
-<img width="50" height="50" alt="instalition" src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" />
+# <img src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" width="35" alt="installation"> Installation
 
 * Download ***Vulpin*** from **github** or using the gitclone and some of the stuff...
-
 * Download **Python 3**.
-
-* Then **Sync** Vulpin in *system variables*. **Sync it with folder of ```Bin```**
+* Then **Sync** Vulpin in *system variables*. **Sync it with folder of `Bin`**
 
 <br>
 
-## Quick Start
-<img width="50" height="50" alt="Quick Start" src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" />
+## <img src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" width="28" alt="Quick Start"> Quick Start
 
 1. **Create a `.vul` file**. Like `hello.vul`:
    ```vul
@@ -39,8 +38,7 @@ If you run `python vul.py` without a filename, it will try to execute `app.vul` 
 > ```G"Hello World"```
 ---
 
-## Command Reference
-<img width="50" height="50" alt="command" src="https://github.com/user-attachments/assets/4ede23ff-99d4-451f-b06c-399b6d87512c" />
+## <img src="https://github.com/user-attachments/assets/4ede23ff-99d4-451f-b06c-399b6d87512c" width="28" alt="command"> Command Reference
 
 | Char | Name              | Syntax                      | Description                          |
 |------|-------------------|-----------------------------|--------------------------------------|
@@ -80,9 +78,7 @@ If you run `python vul.py` without a filename, it will try to execute `app.vul` 
 
 ---
 
-## Basic Syntax
-<img width="50" height="50" alt="basic syntax" src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" />
-
+## <img src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" width="28" alt="basic syntax"> Basic Syntax
 
 ```vul
 name="Armin"
@@ -92,8 +88,7 @@ G 5 + 3            # Prints 8
 G $name            # Prints value of variable name
 ```
 
-### Output
-<img width="50" height="50" alt="output" src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" />
+### <img src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" width="24" alt="output"> Output
 
 ```text
 Hello
@@ -103,8 +98,7 @@ Armin
 
 ---
 
-### Input
-<img width="50" height="50" alt="input" src="https://github.com/user-attachments/assets/7484cff7-978c-4369-969e-18ec06510231" />
+### <img src="https://github.com/user-attachments/assets/7484cff7-978c-4369-969e-18ec06510231" width="24" alt="input"> Input
 
 ```vul
 K"user""Your name: "
@@ -131,9 +125,7 @@ K"letter""Guess: ""L"   # Single letter (default "")
 
 ---
 
-### Variables
-<img width="50" height="50" alt="vars" src="https://github.com/user-attachments/assets/cad50866-c2d4-477f-9a03-e0e2c7648269" />
-
+### <img src="https://github.com/user-attachments/assets/cad50866-c2d4-477f-9a03-e0e2c7648269" width="24" alt="vars"> Variables
 
 ```vul
 x=10               # Direct assignment
@@ -153,8 +145,7 @@ D"y"               # Delete variable
 | `.T` | `title()` | `"hi there".T` → `"Hi There"` |
 | `.C` | `capitalize()` | `"hello".C` → `"Hello"` |
 
-### Delay
-<img width="50" height="50" alt="delay" src="https://github.com/user-attachments/assets/4ffc9f00-dfca-48ed-99f5-c17fe37a2fde" />
+### <img src="https://github.com/user-attachments/assets/4ffc9f00-dfca-48ed-99f5-c17fe37a2fde" width="24" alt="delay"> Delay
 
 ```vul
 D1          # wait 1 second
@@ -164,9 +155,7 @@ D $delay    # wait the value of variable
 
 ---
 
-### Imports
-<img width="50" height="50" alt="modules" src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" />
-
+### <img src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" width="24" alt="modules"> Imports
 
 ```vul
 U"os"
@@ -181,9 +170,7 @@ U"mylib.vul"    # execute another Vul file
 
 ---
 
-## Control Flow
-<img width="50" height="63" alt="control flow" src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" />
-
+## <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="28" alt="control flow"> Control Flow
 
 ### `?` / `:` / `;` – If / Else
 
@@ -200,8 +187,7 @@ score=85
 ;
 ```
 
-### Conditional Jump
-<img width="43" height="50" alt="jump" src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" />
+### <img src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" width="24" alt="jump"> Conditional Jump
 
 ```vul
 x=5
@@ -211,8 +197,7 @@ L skip
 G"Printed"
 ```
 
-### While Loop
-<img width="43" height="50" alt="while" src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" />
+### <img src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" width="24" alt="while"> While Loop
 
 ```vul
 i=0
@@ -222,8 +207,7 @@ i=0
 &
 ```
 
-### Infinite Loop
-<img width="50" height="47" alt="infinite loop" src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" />
+### <img src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" width="24" alt="infinite loop"> Infinite Loop
 
 ```vul
 @1
@@ -231,8 +215,7 @@ i=0
 &
 ```
 
-### For‑Range Loop
-<img width="50" height="50" alt="for range" src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" />
+### <img src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" width="24" alt="for range"/> For‑Range Loop
 
 ```vul
 O i 0 5            # 0,1,2,3,4
@@ -244,9 +227,7 @@ O x 10 0 -2        # 10,8,6,4,2
 &
 ```
 
-### Switch / Case
-<img width="50" height="50" alt="switch case" src="https://github.com/user-attachments/assets/610cc6f7-9b0e-475d-8214-d1956108a150" />
-
+### <img src="https://github.com/user-attachments/assets/610cc6f7-9b0e-475d-8214-d1956108a150" width="24" alt="switch case"> Switch / Case
 
 ```vul
 fruit="apple"
@@ -257,8 +238,7 @@ N           G"unknown"
 Z
 ```
 
-### Labels & Jumps
-<img width="50" height="50" alt="lables and jumps" src="https://github.com/user-attachments/assets/69071c8e-a5ef-4191-accf-39ac6bf33871" />
+### <img src="https://github.com/user-attachments/assets/69071c8e-a5ef-4191-accf-39ac6bf33871" width="24" alt="lables and jumps"> Labels & Jumps
 
 ```vul
 J end
@@ -269,8 +249,7 @@ G"Done"
 
 ---
 
-## Functions
-<img width="50" height="50" alt="Functions" src="https://github.com/user-attachments/assets/8df0efae-1ea3-480a-8521-1a831273eb4f" />
+## <img src="https://github.com/user-attachments/assets/8df0efae-1ea3-480a-8521-1a831273eb4f" width="28" alt="Functions"> Functions
 
 ```vul
 F add(a, b)
@@ -288,8 +267,7 @@ $greet("World")
 
 ---
 
-## Error Handling
-<img width="50" height="50" alt="error handling" src="https://github.com/user-attachments/assets/5fd93dca-7f13-42a9-9079-cf73c4a8dd2e" />
+## <img src="https://github.com/user-attachments/assets/5fd93dca-7f13-42a9-9079-cf73c4a8dd2e" width="28" alt="error handling"> Error Handling
 
 ```vul
 T
@@ -302,23 +280,18 @@ Y
 G"Continues..."
 ```
 
-Output:
+### <img src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" width="24" alt="output"> Output
 
-<img width="50" height="50" alt="output" src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" />
-
-```
+```text
 Error: division by zero
 Continues...
 ```
 
 ---
 
-## Inline Python
-<img width="50" height="50" alt="py with vul" src="https://github.com/user-attachments/assets/c4f07e70-bae7-41cc-9d74-7a9b191f52ee" />
+## <img src="https://github.com/user-attachments/assets/c4f07e70-bae7-41cc-9d74-7a9b191f52ee" width="28" alt="py with vul"> Inline Python
 
-
-### Single line
-<img width="50" height="50" alt="Single line" src="https://github.com/user-attachments/assets/adf0f2c1-4fbc-461a-ac28-1133bafd2688" />
+### <img src="https://github.com/user-attachments/assets/adf0f2c1-4fbc-461a-ac28-1133bafd2688" width="24" alt="Single line"> Single line
 
 ```vul
 !print("Hello from Python")
@@ -326,8 +299,7 @@ Continues...
 G $x
 ```
 
-### Multi‑line
-<img width="50" height="50" alt="multi line" src="https://github.com/user-attachments/assets/a65cebb9-ada6-4f82-b4bb-f0d6e4a03de9" />
+### <img src="https://github.com/user-attachments/assets/a65cebb9-ada6-4f82-b4bb-f0d6e4a03de9" width="24" alt="multi line"> Multi‑line
 
 ```vul
 !class Dog:
@@ -343,19 +315,15 @@ G $d.speak()
 
 ---
 
-## Complete Examples
-<img width="50" height="50" alt="complete examples" src="https://github.com/user-attachments/assets/9d3da031-73c9-4067-a40d-deebb60c8835" />
+## <img src="https://github.com/user-attachments/assets/9d3da031-73c9-4067-a40d-deebb60c8835" width="28" alt="complete examples"> Complete Examples
 
-
-### Hello World
-<img width="50" height="50" alt="hello world" src="https://github.com/user-attachments/assets/f8d02dc9-ba0a-4475-a631-ce85ad7165c1" />
+### <img src="https://github.com/user-attachments/assets/f8d02dc9-ba0a-4475-a631-ce85ad7165c1" width="24" alt="hello world"> Hello World
 
 ```vul
 G"Hello World"
 ```
 
-### Calculator
-<img width="50" height="50" alt="calculator" src="https://github.com/user-attachments/assets/b9155a99-ae82-4d97-b629-a40b0f75333b" />
+### <img src="https://github.com/user-attachments/assets/b9155a99-ae82-4d97-b629-a40b0f75333b" width="24" alt="calculator"> Calculator
 
 ```vul
 K"a""First: ""N"
@@ -371,8 +339,7 @@ K"b""Second: ""N"
 ;
 ```
 
-### Guessing Game
-<img width="50" height="50" alt="guess" src="https://github.com/user-attachments/assets/79d007f1-9cca-47da-96c5-1dfa7e5098b7" />
+### <img src="https://github.com/user-attachments/assets/79d007f1-9cca-47da-96c5-1dfa7e5098b7" width="24" alt="guess"> Guessing Game
 
 ```vul
 U"random"
@@ -391,8 +358,7 @@ tries=$tries+1
 J guess
 ```
 
-### Factorial
-<img width="50" height="50" alt="factory" src="https://github.com/user-attachments/assets/fd3b9fed-4ce3-4f57-b0df-9c8d6b92a55a" />
+### <img src="https://github.com/user-attachments/assets/fd3b9fed-4ce3-4f57-b0df-9c8d6b92a55a" width="24" alt="factory"> Factorial
 
 ```vul
 F factorial(n)
@@ -407,8 +373,7 @@ G $factorial(5)   # 120
 
 ---
 
-## Checking vul version
-<img width="50" height="50" alt="information" src="https://github.com/user-attachments/assets/abbb437f-90ee-4ab5-a81d-9af0445dc0eb" />
+## <img src="https://github.com/user-attachments/assets/abbb437f-90ee-4ab5-a81d-9af0445dc0eb" width="28" alt="information"> Checking vul version
 
 To check the version of Vul you are running:
 
@@ -417,12 +382,11 @@ vulpin version
 ```
 
 Output:
-```
+```text
 Vul 0.1
 ```
 
-# Build your apps! (Beta)
-<img width="50" height="50" alt="build" src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" />
+# <img src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" width="35" alt="build"> Build your apps! (Beta)
 
 * If you want to build your app, first you should install pyinstaller:
 
@@ -434,42 +398,39 @@ Then all things are right!
 
 ### you can build your apps easily like this:
 
-* for build your app as ```default```:
-```
+* for build your app as `default`:
+```bash
 vulbuild
 ```
-* for build for ```linux```, ```macos```,```windows```:
-```
+* for build for `linux`, `macos`, `windows`:
+```bash
 vulbuild --os all --cross
 ```
-* for build a ```specific OS``` only:
-```
+* for build a `specific OS` only:
+```bash
 vulbuild --os linux --cross
 ```
-```
+```bash
 vulbuild --os windows --cross
 ```
-* for ```package``` your Project:
-```
+* for `package` your Project:
+```bash
 vulbuild --os all --cross --package zip tar.gz appimage dmg
 ```
 
 ---
 
-# TroubleShooting
-<img width="50" height="50" alt="fix" src="https://github.com/user-attachments/assets/c40f82cd-42a4-459f-8527-a6a5d536fa21" />
-
+# <img src="https://github.com/user-attachments/assets/c40f82cd-42a4-459f-8527-a6a5d536fa21" width="35" alt="fix"> Troubleshooting
 
 Let's fix your **problems**!
 
 - Python Type Hint Syntax Error:
-  this is known error in new Vulpin version like you can see it at most in version ```0.5``` but thats easy to fix!
-  - on ***vulpin 0.5*** this error might be in line of ```682``` or line of ```77``` or etc...!
+  this is known error in new Vulpin version like you can see it at most in version `0.5` but thats easy to fix!
+  - on ***vulpin 0.5*** this error might be in line of `682` or line of `77` or etc...!
     take a look at here to see how to fix: https://github.com/orgs/community/discussions/199748
 ---
 
-## Some of the *notes*
-<img width="50" height="50" alt="sotn" src="https://github.com/user-attachments/assets/64a4c9c6-0d14-4227-bb4c-4b53892c658b" />
+## <img src="https://github.com/user-attachments/assets/64a4c9c6-0d14-4227-bb4c-4b53892c658b" width="28" alt="sotn"> Some of the *notes*
 
 - **Spaces** are optional after commands. `G"Hi"` and `G "Hi"` both work.
 - **All commands are case‑sensitive** – only uppercase for the command letters <mark>(except `!`, `=`, `#`)</mark>.
@@ -477,8 +438,7 @@ Let's fix your **problems**!
 
 ---
 
-## License
-<img width="50" height="50" alt="licence" src="https://github.com/user-attachments/assets/205bbb20-10fb-47f9-a08f-025fa6ed92da" />
+## <img src="https://github.com/user-attachments/assets/205bbb20-10fb-47f9-a08f-025fa6ed92da" width="28" alt="licence"> License
 
 MIT LICENCE.
 CHECK OUT LICENCE.
@@ -486,10 +446,11 @@ ICONS ARE UNDER LICENCE TOO.
 
 ---
 
-<img width="50" height="50" alt="party popper" src="https://github.com/user-attachments/assets/2ba6b38a-1295-44e9-9c74-a4bd59697274" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2ba6b38a-1295-44e9-9c74-a4bd59697274" width="50" alt="party popper">
+</p>
 
 **Happy coding with Vulpin!**
 
 Actually, the word "vulpin" comes from Vulpes. Vulpes are so cute! I was taking a look at them and saw that they have rainbow colored eyes and light eyes! but they were escaping from me. :(
 We all learn from animals and nature :D We should support all animals. The fox is not extinct yet, but it could be. If we don't pay attention, it will become extinct too. :(
-***
