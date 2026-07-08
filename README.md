@@ -200,7 +200,8 @@ score=85
 ;
 ```
 
-### `?` ... `J` – Conditional Jump🦊🦘
+### Conditional Jump
+<img width="50" height="50" alt="jump" src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" />
 
 ```vul
 x=5
@@ -210,7 +211,8 @@ L skip
 G"Printed"
 ```
 
-### `@` / `&` – While Loop ➰🦊
+### While Loop
+<img width="50" height="50" alt="while" src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" />
 
 ```vul
 i=0
@@ -220,15 +222,17 @@ i=0
 &
 ```
 
-### `@ 1` – Infinite Loop ➿🦊
+### Infinite Loop
+<img width="50" height="50" alt="infinite loop" src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" />
 
 ```vul
-@ 1
+@1
     G"Running forever..."
 &
 ```
 
-### `O` / `&` – For‑Range Loop 🏌️🦊
+### For‑Range Loop 🏌️🦊
+<img width="205" height="208" alt="for range" src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" />
 
 ```vul
 O i 0 5            # 0,1,2,3,4
@@ -240,7 +244,9 @@ O x 10 0 -2        # 10,8,6,4,2
 &
 ```
 
-### `W` / `V` / `N` / `Z` – Switch / Case🛟🦊
+### Switch / Case
+<img width="50" height="50" alt="switch case" src="https://github.com/user-attachments/assets/610cc6f7-9b0e-475d-8214-d1956108a150" />
+
 
 ```vul
 fruit="apple"
@@ -251,7 +257,8 @@ N           G"unknown"
 Z
 ```
 
-### `L` / `J` – Labels & Jumps🦊
+### Labels & Jumps
+<img width="50" height="50" alt="lables and jumps" src="https://github.com/user-attachments/assets/69071c8e-a5ef-4191-accf-39ac6bf33871" />
 
 ```vul
 J end
@@ -262,7 +269,8 @@ G"Done"
 
 ---
 
-## 🔧 Functions
+## Functions
+<img width="50" height="50" alt="Functions" src="https://github.com/user-attachments/assets/8df0efae-1ea3-480a-8521-1a831273eb4f" />
 
 ```vul
 F add(a, b)
@@ -280,7 +288,8 @@ $greet("World")
 
 ---
 
-## 🥷 Error Handling
+## Error Handling
+<img width="50" height="50" alt="error handling" src="https://github.com/user-attachments/assets/5fd93dca-7f13-42a9-9079-cf73c4a8dd2e" />
 
 ```vul
 T
@@ -293,7 +302,8 @@ Y
 G"Continues..."
 ```
 
-📤Output:
+Output:
+<img width="50" height="50" alt="output" src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" />
 ```
 Error: division by zero
 Continues...
@@ -301,9 +311,12 @@ Continues...
 
 ---
 
-## 🐍🦊 Inline Python (`!`)
+## Inline Python
+<img width="50" height="50" alt="py with vul" src="https://github.com/user-attachments/assets/c4f07e70-bae7-41cc-9d74-7a9b191f52ee" />
+
 
 ### Single line
+<img width="50" height="50" alt="Single line" src="https://github.com/user-attachments/assets/adf0f2c1-4fbc-461a-ac28-1133bafd2688" />
 
 ```vul
 !print("Hello from Python")
@@ -311,7 +324,8 @@ Continues...
 G $x
 ```
 
-### Multi‑line (every line starts with `!`)
+### Multi‑line
+<img width="50" height="50" alt="multi line" src="https://github.com/user-attachments/assets/a65cebb9-ada6-4f82-b4bb-f0d6e4a03de9" />
 
 ```vul
 !class Dog:
@@ -327,15 +341,19 @@ G $d.speak()
 
 ---
 
-## 🧪 Complete Examples
+## Complete Examples
+<img width="50" height="50" alt="complete examples" src="https://github.com/user-attachments/assets/9d3da031-73c9-4067-a40d-deebb60c8835" />
 
-### 👋 Hello World
+
+### Hello World
+<img width="50" height="50" alt="hello world" src="https://github.com/user-attachments/assets/f8d02dc9-ba0a-4475-a631-ce85ad7165c1" />
 
 ```vul
 G"Hello World"
 ```
 
-### 🧮 Calculator
+### Calculator
+<img width="50" height="50" alt="calculator" src="https://github.com/user-attachments/assets/b9155a99-ae82-4d97-b629-a40b0f75333b" />
 
 ```vul
 K"a""First: ""N"
@@ -351,7 +369,8 @@ K"b""Second: ""N"
 ;
 ```
 
-### 🤔 Guessing Game (For practice)
+### Guessing Game
+<img width="50" height="50" alt="guess" src="https://github.com/user-attachments/assets/79d007f1-9cca-47da-96c5-1dfa7e5098b7" />
 
 ```vul
 U"random"
@@ -370,7 +389,8 @@ tries=$tries+1
 J guess
 ```
 
-### 🏭 Factorial
+### Factorial
+<img width="50" height="50" alt="factory" src="https://github.com/user-attachments/assets/fd3b9fed-4ce3-4f57-b0df-9c8d6b92a55a" />
 
 ```vul
 F factorial(n)
@@ -385,7 +405,8 @@ G $factorial(5)   # 120
 
 ---
 
-## Command for check version 🦊
+## Checking vul version
+<img width="50" height="50" alt="information" src="https://github.com/user-attachments/assets/abbb437f-90ee-4ab5-a81d-9af0445dc0eb" />
 
 To check the version of Vul you are running:
 
@@ -398,7 +419,8 @@ Output:
 Vul 0.1
 ```
 
-# Build your app! (Beta) 🦊🏗️
+# Build your apps! (Beta)
+<img width="50" height="50" alt="build" src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" />
 
 * If you want to build your app, first you should install pyinstaller:
 
@@ -406,7 +428,7 @@ Vul 0.1
 pip install pyinstaller
 ```
 
-then all things are right!
+Then all things are right!
 
 ### you can build your apps easily like this:
 
@@ -431,7 +453,10 @@ vulbuild --os all --cross --package zip tar.gz appimage dmg
 ```
 
 ---
-# TroubleShooting💫
+
+# TroubleShooting
+<img width="50" height="50" alt="fix" src="https://github.com/user-attachments/assets/c40f82cd-42a4-459f-8527-a6a5d536fa21" />
+
 
 Let's fix your **problems**!
 
@@ -450,10 +475,16 @@ Let's fix your **problems**!
 
 ---
 
-## 📄 License
+## License
+<img width="50" height="50" alt="licence" src="https://github.com/user-attachments/assets/205bbb20-10fb-47f9-a08f-025fa6ed92da" />
+
 MIT LICENCE.
-CHECK OUT LICENCE. :D
+CHECK OUT LICENCE.
+ICONS ARE UNDER LICENCE TOO.
+
 ---
+
+<img width="50" height="50" alt="party popper" src="https://github.com/user-attachments/assets/2ba6b38a-1295-44e9-9c74-a4bd59697274" />
 
 **Happy coding with Vulpin!**
 
