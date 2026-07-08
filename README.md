@@ -223,7 +223,7 @@ i=0
 ```
 
 ### Infinite Loop
-<img width="50" height="50" alt="infinite loop" src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" />
+<img width="50" height="47" alt="infinite loop" src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" />
 
 ```vul
 @1
@@ -303,7 +303,9 @@ G"Continues..."
 ```
 
 Output:
+
 <img width="50" height="50" alt="output" src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" />
+
 ```
 Error: division by zero
 Continues...
