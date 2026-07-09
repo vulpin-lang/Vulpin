@@ -1871,7 +1871,7 @@ fn main() {
             return;
         }
     } else if args[1] == "version" {
-        println!("Vul 0.7 beta");
+        println!("Vul 0.7");
         return;
     } else {
         &args[1]
