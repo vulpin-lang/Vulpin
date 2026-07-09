@@ -23,11 +23,11 @@ It was designed to let you ***write the smallest possible programs*** while stil
 ## <img src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" width="28" alt="Quick Start"> Quick Start
 
 1. **Create a `.vul` file**. Like `hello.vul`:
-   ```vul
+   ```basic
    G "Hello from Vul!"
    ```
 2. **Run it**:
-   ```bash
+   ```basic
    python vul.py hello.vul
    ```
 
@@ -80,7 +80,7 @@ If you run `python vul.py` without a filename, it will try to execute `app.vul` 
 
 ## <img src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" width="28" alt="basic syntax"> Basic Syntax
 
-```vul
+```basic
 name="Armin"
 G"Hello"           # Prints with newline
 P"Loading..."      # Prints without newline
@@ -100,7 +100,7 @@ Armin
 
 ### <img src="https://github.com/user-attachments/assets/7484cff7-978c-4369-969e-18ec06510231" width="24" alt="input"> Input
 
-```vul
+```basic
 K"user""Your name: "
 G"Hi, " + $user
 
@@ -127,7 +127,7 @@ K"letter""Guess: ""L"   # Single letter (default "")
 
 ### <img src="https://github.com/user-attachments/assets/cad50866-c2d4-477f-9a03-e0e2c7648269" width="24" alt="vars"> Variables
 
-```vul
+```basic
 x=10               # Direct assignment
 name="Vul"
 
@@ -147,7 +147,7 @@ D"y"               # Delete variable
 
 ### <img src="https://github.com/user-attachments/assets/4ffc9f00-dfca-48ed-99f5-c17fe37a2fde" width="24" alt="delay"> Delay
 
-```vul
+```basic
 D1          # wait 1 second
 D0.5        # wait 0.5 seconds
 D $delay    # wait the value of variable
@@ -157,7 +157,7 @@ D $delay    # wait the value of variable
 
 ### <img src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" width="24" alt="modules"> Imports
 
-```vul
+```basic
 U"os"
 G $os.getcwd()
 $os.system("echo Hello")
@@ -172,9 +172,9 @@ U"mylib.vul"    # execute another Vul file
 
 ## <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="28" alt="control flow"> Control Flow
 
-### `?` / `:` / `;` – If / Else
+### <img src="https://github.com/user-attachments/assets/2ec067a9-d217-4e28-8cec-f0319e93c1f4" width="24" alt="if else"> If / Else
 
-```vul
+```basic
 score=85
 ? $score >= 90
     G"A"
@@ -189,7 +189,7 @@ score=85
 
 ### <img src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" width="24" alt="jump"> Conditional Jump
 
-```vul
+```basic
 x=5
 ? $x > 3 J skip
 G"Not printed"
@@ -199,7 +199,7 @@ G"Printed"
 
 ### <img src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" width="24" alt="while"> While Loop
 
-```vul
+```basic
 i=0
 @ $i < 5
     G $i
@@ -209,7 +209,7 @@ i=0
 
 ### <img src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" width="24" alt="infinite loop"> Infinite Loop
 
-```vul
+```basic
 @1
     G"Running forever..."
 &
@@ -217,7 +217,7 @@ i=0
 
 ### <img src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" width="24" alt="for range"/> For‑Range Loop
 
-```vul
+```basic
 O i 0 5            # 0,1,2,3,4
     G $i
 &
@@ -229,18 +229,21 @@ O x 10 0 -2        # 10,8,6,4,2
 
 ### <img src="https://github.com/user-attachments/assets/610cc6f7-9b0e-475d-8214-d1956108a150" width="24" alt="switch case"> Switch / Case
 
-```vul
+```basic
 fruit="apple"
 W $fruit
-V"banana"   G"yellow"
-V"apple"    G"red or green"
-N           G"unknown"
+V"banana"
+G"yellow"
+V"apple"
+G"red or green"
+N
+G"unknown"
 Z
 ```
 
 ### <img src="https://github.com/user-attachments/assets/69071c8e-a5ef-4191-accf-39ac6bf33871" width="24" alt="lables and jumps"> Labels & Jumps
 
-```vul
+```basic
 J end
 G"Skipped"
 L end
@@ -251,7 +254,7 @@ G"Done"
 
 ## <img src="https://github.com/user-attachments/assets/8df0efae-1ea3-480a-8521-1a831273eb4f" width="28" alt="Functions"> Functions
 
-```vul
+```basic
 F add(a, b)
     R $a + $b
 ~
@@ -269,7 +272,7 @@ $greet("World")
 
 ## <img src="https://github.com/user-attachments/assets/5fd93dca-7f13-42a9-9079-cf73c4a8dd2e" width="28" alt="error handling"> Error Handling
 
-```vul
+```basic
 T
     x=10
     y=0
@@ -291,9 +294,11 @@ Continues...
 
 ## <img src="https://github.com/user-attachments/assets/c4f07e70-bae7-41cc-9d74-7a9b191f52ee" width="28" alt="py with vul"> Inline Python
 
+**Python requirement**
+
 ### <img src="https://github.com/user-attachments/assets/adf0f2c1-4fbc-461a-ac28-1133bafd2688" width="24" alt="Single line"> Single line
 
-```vul
+```basic
 !print("Hello from Python")
 !x = 42
 G $x
@@ -301,42 +306,41 @@ G $x
 
 ### <img src="https://github.com/user-attachments/assets/a65cebb9-ada6-4f82-b4bb-f0d6e4a03de9" width="24" alt="multi line"> Multi‑line
 
-```vul
+```basic
 !class Dog:
 !    def __init__(self, name):
 !        self.name = name
 !    def speak(self):
 !        return "Woof!"
-
+!
 !d = Dog("Buddy")
-G $d.name
-G $d.speak()
+!print(d.name)
+!print(d.speak())
 ```
 
 ---
 
+### <img src="https://github.com/user-attachments/assets/f8cf14d1-0e20-4e81-9abc-87d40cb50371" width="24" alt="vulpin with rust"> Vulpin with rust
+
+```basic
+^use std::process::Command;
+^fn main() {
+^    Command::new("winver")
+^        .spawn()
+^        .expect("failed to launch winver");
+^    println!("winver launched, continuing...");
+^}
+```
+
+You can use ```^``` for running **Rust** command's!
+
+---
 ## <img src="https://github.com/user-attachments/assets/9d3da031-73c9-4067-a40d-deebb60c8835" width="28" alt="complete examples"> Complete Examples
 
 ### <img src="https://github.com/user-attachments/assets/f8d02dc9-ba0a-4475-a631-ce85ad7165c1" width="24" alt="hello world"> Hello World
 
-```vul
+```basic
 G"Hello World"
-```
-
-### <img src="https://github.com/user-attachments/assets/b9155a99-ae82-4d97-b629-a40b0f75333b" width="24" alt="calculator"> Calculator
-
-```vul
-K"a""First: ""N"
-K"op""Op (+,-,*,/): ""W"
-K"b""Second: ""N"
-? $op="+" G $a+$b
-:? $op="-" G $a-$b
-:? $op="*" G $a*$b
-:? $op="/" G $a/$b
-;
-;
-;
-;
 ```
 
 ### <img src="https://github.com/user-attachments/assets/79d007f1-9cca-47da-96c5-1dfa7e5098b7" width="24" alt="guess"> Guessing Game
@@ -360,7 +364,7 @@ J guess
 
 ### <img src="https://github.com/user-attachments/assets/fd3b9fed-4ce3-4f57-b0df-9c8d6b92a55a" width="24" alt="factory"> Factorial
 
-```vul
+```basic
 F factorial(n)
     ? $n<=1
         R 1
