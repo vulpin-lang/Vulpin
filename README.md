@@ -15,7 +15,7 @@ It was designed to let you ***write the smallest possible programs*** while stil
 # <img src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" width="35" alt="installation"> Installation
 
 * Download ***Vulpin*** from **github** or using the gitclone and some of the stuff...
-* Download **Python 3**.
+* Download **Rust** then *Install* it.
 * Then **Sync** Vulpin in *system variables*. **Sync it with folder of `Bin`**
 
 <br>
