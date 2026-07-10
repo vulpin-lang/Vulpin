@@ -1796,9 +1796,9 @@ fn build_app(vul_file: &str, target_os: &str) {
 
     std::fs::write(temp_dir.join("Cargo.toml"), r#"
 [package]
-name = "vulpin_app"
-version = "0.1.0"
-edition = "2021"
+name = "Vulpin App"
+version = "0.1.1"
+edition = "2026"
 "#).unwrap();
 
     std::fs::write(temp_dir.join("src/main.rs"), final_code).unwrap();
@@ -1871,7 +1871,7 @@ fn main() {
             return;
         }
     } else if args[1] == "version" {
-        println!("Vul 0.7");
+        println!("Vul 0.7.5");
         return;
     } else {
         &args[1]
