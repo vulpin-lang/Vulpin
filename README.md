@@ -390,36 +390,10 @@ Output:
 Vul 0.1
 ```
 
-# <img src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" width="35" alt="build"> Build your apps! (Beta)
+# <img src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" width="35" alt="build"> Build your apps!
 
-* If you want to build your app, first you should install pyinstaller:
-
-```bash
-pip install pyinstaller
 ```
-
-Then all things are right!
-
-### you can build your apps easily like this:
-
-* for build your app as `default`:
-```bash
-vulbuild
-```
-* for build for `linux`, `macos`, `windows`:
-```bash
-vulbuild --os all --cross
-```
-* for build a `specific OS` only:
-```bash
-vulbuild --os linux --cross
-```
-```bash
-vulbuild --os windows --cross
-```
-* for `package` your Project:
-```bash
-vulbuild --os all --cross --package zip tar.gz appimage dmg
+vulpin build
 ```
 
 ---
