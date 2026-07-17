@@ -2,14 +2,22 @@
   <img src="https://github.com/user-attachments/assets/507f577f-9567-42cf-b232-c7811c200aa6" width="100%" alt="Vulpin Banner">
 </p>
 
-# Vulpin
-
-**Vulpin** is a tiny, *single character command scripting language* that runs on top of **Python** :)🦊!  
-It was designed to let you ***write the smallest possible programs*** while still having full programming power! ;)
+<br>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/Bat-Script/Vulpin?style=social" alt="GitHub stars">
-  <img src="https://img.shields.io/github/last-commit/Bat-Script/Vulpin" alt="Last Commit">
+  <strong>Vulpin</strong> is a tiny, <em>single character command scripting language</em> that runs on top of <strong>Python</strong> :)🦊!<br>
+  It was designed to let you <strong><em>write the smallest possible programs</em></strong> while still having full programming power! ;)
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/github/stars/vulpin-lang/Vulpin?style=for-the-badge&color=fab387&labelColor=313244">
+    <img src="https://img.shields.io/github/forks/vulpin-lang/Vulpin?style=for-the-badge&color=89dceb&labelColor=313244">
+    <img src="https://img.shields.io/github/issues/vulpin-lang/Vulpin?style=for-the-badge&color=f38ba8&labelColor=313244">
+    <img src="https://img.shields.io/github/license/vulpin-lang/Vulpin?style=for-the-badge&color=a6e3a1&labelColor=313244">
+    <br>
+    <img src="https://img.shields.io/github/last-commit/vulpin-lang/Vulpin?style=for-the-badge&color=cba6f7&labelColor=313244">
+    <img src="https://img.shields.io/github/repo-size/vulpin-lang/Vulpin?style=for-the-badge&color=74c7ec&labelColor=313244">
+    <img src="https://img.shields.io/github/languages/code-size/vulpin-lang/Vulpin?style=for-the-badge&color=f9e2af&labelColor=313244">
 </p>
 
 # <img src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" width="35" alt="installation"> Installation
