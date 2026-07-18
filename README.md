@@ -38,6 +38,10 @@
    ```basic
    python vul.py hello.vul
    ```
+   _on Windows_:
+    ```basic
+   cmd /c vulpin.bat hello.vul
+    ```
 
 If you run `python vul.py` without a filename, it will try to execute `app.vul` in the current directory!
 > [!TIP]
