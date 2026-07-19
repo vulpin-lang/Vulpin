@@ -1,0 +1,10 @@
+[package]
+name = "vulpin"
+version = "0.8"
+edition = "2026"
+
+[dependencies]
+
+[[bin]]
+name = "vulpin"
+path = "src/vulpin.rs"
