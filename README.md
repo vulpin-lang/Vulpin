@@ -387,6 +387,46 @@ F factorial(n)
 G $factorial(5)   # 120
 ```
 
+### mandelbrot simulation (BY stefan)
+
+```basic
+U"matplotlib.pyplot"
+!import matplotlib.pyplot as plt
+!import numpy as np
+!data = np.zeros((50, 50))
+
+width=50
+height=50
+max_iter=30
+
+O y 0 height
+    O x 0 width
+        real = -2.0 + (3.0 * $x / width)
+        imag = -1.25 + (2.5 * $y / height)
+        zr = 0
+        zi = 0
+        iter = 0
+        @ ($iter < max_iter)
+            zr2 = $zr * $zr
+            zi2 = $zi * $zi
+            new_zr = $zr2 - $zi2 + $real
+            zi = 2 * $zr * $zi + $imag
+            zr = $new_zr
+            ? ($zr2 + $zi2 > 4)
+                J escape
+            ;
+            iter = $iter + 1
+        &
+        L escape
+        !data[$y, $x] = $iter
+    &
+&
+
+!plt.imshow(data, cmap='inferno')
+!plt.axis('off')
+!plt.show()
+```
+
 ---
 
 ## <img src="https://github.com/user-attachments/assets/abbb437f-90ee-4ab5-a81d-9af0445dc0eb" width="28" alt="information"> Checking vul version
