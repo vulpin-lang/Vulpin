@@ -21,10 +21,22 @@
 </p>
 
 # <img src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" width="35" alt="installation"> Installation
-
 * Download ***Vulpin*** from **github** or using the gitclone and some of the stuff...
 * Download **Rust** then *Install* it.
 * Then **Sync** Vulpin in *system variables*. **Sync it with folder of `Bin`**
+
+**on Linux:**
+```bash
+cd ~/vulpin/bin
+```
+
+```bash
+chmod +x vulpin.sh
+```
+
+```bash
+sudo ln -sf "$(pwd)/vulpin.sh" /usr/local/bin/vulpin
+```
 
 <br>
 
@@ -169,6 +181,10 @@ D $delay    # wait the value of variable
 
 ### <img src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" width="24" alt="modules"> Imports
 
+#### Importing Python modules
+
+You can Import Rust Modules with using ```U```.
+
 ```basic
 U"os"
 G $os.getcwd()
@@ -179,7 +195,14 @@ G $math.sqrt(16)
 
 U"mylib.vul"    # execute another Vul file
 ```
+#### Importing Rust modules
 
+You can Import Rust Modules with using ```%```.
+
+```basic
+dir = % std::env::current_dir()
+G "Current dir: " + $dir
+```
 ---
 
 ## <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="28" alt="control flow"> Control Flow
