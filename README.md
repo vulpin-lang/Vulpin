@@ -32,7 +32,7 @@
 
 or Download source!
 
-Notice: **Run as root****
+*Notice:* **Run as root**
 
 ```
 pip install customtkinter
