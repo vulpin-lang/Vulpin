@@ -1,34 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-SOURCE="${BASH_SOURCE[0]}"
-while [ -L "$SOURCE" ]; do
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-done
-SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-ORIG_DIR="$(pwd)"
-cd "$SCRIPT_DIR/.." || exit 1
-PROJECT_ROOT="$(pwd)"
-SRC_FILE="$PROJECT_ROOT/src/vulpin.rs"
-EXE_FILE="$PROJECT_ROOT/vulpin_bin"
-if [ ! -f "$SRC_FILE" ]; then
-    echo "Error: Source file not found at $SRC_FILE"
-    exit 1
-fi
-if [ $# -eq 0 ]; then
-    echo "Usage: vulpin [command] [args...]"
-    echo "Example: vulpin app.vul"
-    exit 0
-fi
-ARGS=("$@")
-if [ -f "$ORIG_DIR/${ARGS[0]}" ]; then
-    ARGS[0]="$ORIG_DIR/${ARGS[0]}"
-fi
-rustc -C opt-level=3 "$SRC_FILE" -o "$EXE_FILE"
+set -euo pipefail
 
-if [ $? -ne 0 ]; then
-    echo "Compilation failed!"
-    exit 1
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SRC_DIR="$PROJECT_ROOT/src"
+BINARY="$SRC_DIR/vulpin"
+
+if [[ ! -x "$BINARY" ]]; then
+    echo "[vulpin] Building from source..." >&2
+    if ! command -v gcc &>/dev/null; then
+        echo "[vulpin] ERROR: gcc not found." >&2
+        exit 1
+    fi
+    (cd "$SRC_DIR" && make 2>/dev/null || gcc -O2 -o vulpin main.c lexer.c parser.c vm.c vulpin.c -lm) || {
+        echo "[vulpin] ERROR: Build failed." >&2
+        exit 1
+    }
+    echo "[vulpin] Build complete." >&2
 fi
-"$EXE_FILE" "${ARGS[@]}"
+
+exec "$BINARY" "$@"
