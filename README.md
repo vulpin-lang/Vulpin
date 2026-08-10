@@ -30,14 +30,19 @@
 
 - and Download and Install the version of Vulpin that you want! 
 
-or Download Installer!
+or Download source!
+
+Notice: **Run as root****
 
 ```
-pip install vulpin
+pip install customtkinter
 ```
+```
+python setup.py gui  
 ```
 
-```
+If you got Permission Denied, You didn't run them as Root.
+
 ## <img src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" width="28" alt="Quick Start"> Quick Start
 
 1. **Create a `.vul` file**. Like `hello.vul`:
