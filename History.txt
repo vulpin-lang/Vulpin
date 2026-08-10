@@ -1,0 +1,28 @@
+Vulpin is a programming language that made by Armin Ghassemi(BatScript). which he wanted to write a programming language which can Build Smallest Possible Program's.
+
+First Release of Vulpin Shown at Bale application.
+then moved to Github.
+and then moved to official vulpin website.
+
+Vulpin was wrote in Python first, then Armin G. and his team moved to Rust and then they moved to C.
+
+Vulpin Introduced VulpinC (the next version of vulpin x0.9, Vulpin Jelly) in 10 august.
+
+
+# Cool Contributes, can build cool stuff together.
+
+Contributers who worked so much =) :
+
+dragprog (stefand-0)
+Goldyfisher
+Jishan
+Xgf
+Rami
+Amirhossein B.
+MeowPizza
+DirtyCube
+BatScript
+
+Sponsers:
+
+FluxCast: Domain Sponser, Website moderator.
