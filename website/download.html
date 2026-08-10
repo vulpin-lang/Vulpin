@@ -32,22 +32,22 @@
         <div class="slot">
           <div class="tag">Windows</div>
           <div class="about"><b>Windows Installer</b><span>v0.9 — gobble every setup you already have</span></div>
-          <a class="go" href="#">Download .exe</a>
+          <a class="go" href="https://github.com/vulpin-lang/Vulpin/releases/tag/V0.9">Download .exe</a>
         </div>
         <div class="slot">
           <div class="tag">macOS</div>
           <div class="about"><b>macOS Installer</b><span>v0.9 — for Apple silicon and Intel</span></div>
-          <a class="go" href="#">Download .pkg</a>
+          <a class="go" href="https://github.com/vulpin-lang/Vulpin/releases/tag/V0.9">Download .pkg</a>
         </div>
         <div class="slot">
           <div class="tag">Linux</div>
           <div class="about"><b>Linux Installer</b><span>v0.9 — deb, rpm and tarball inside</span></div>
-          <a class="go" href="#">Download .run</a>
+          <a class="go" href="https://github.com/vulpin-lang/Vulpin/releases/tag/V0.9">Download .run</a>
         </div>
         <div class="slot">
           <div class="tag">PyPI</div>
           <div class="about"><b>pip install vulpin</b><span>the only command your terminal needs</span></div>
-          <a class="go" href="#">Copy command ↓</a>
+          <a class="go" href="#" id="copycmd">Copy command ↓</a>
         </div>
       </div>
 
@@ -85,6 +85,18 @@
     <div>made by ilunonix, chipped by the vulpin community</div>
     <div class="copyright">© 2026 vulpin-lang · released under the MIT license</div>
   </footer>
+
+  <script>
+    document.getElementById('copycmd').addEventListener('click', function (e) {
+      e.preventDefault();
+      navigator.clipboard.writeText('pip install vulpin').then(function () {
+        var btn = document.getElementById('copycmd');
+        var old = btn.textContent;
+        btn.textContent = 'Copied! ✓';
+        setTimeout(function () { btn.textContent = old; }, 1200);
+      });
+    });
+  </script>
 
 </body>
 </html>
