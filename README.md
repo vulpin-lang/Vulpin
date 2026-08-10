@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2af5670a-8dc0-43c4-9607-f663b73c7b67" width="80%" alt="Vulpin Banner">
+  <img src="https://github.com/user-attachments/assets/bb805288-2c59-46e1-811d-bac9ca7e40db" width="80%" alt="Vulpin Banner">
 </p>
 
 <p align="center">
@@ -30,6 +30,14 @@
 
 - and Download and Install the version of Vulpin that you want! 
 
+or Download Installer!
+
+```
+pip install vulpin
+```
+```
+
+```
 ## <img src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" width="28" alt="Quick Start"> Quick Start
 
 1. **Create a `.vul` file**. Like `hello.vul`:
