@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started â€” Vulpin</title>
+  <meta name="description" content="Write and run your first Vulpin program in three steps. All you need is a text editor and the Vulpin interpreter.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.png" type="image/png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="brand" href="index.html"><img src="logo.png" alt="">Vulpin</a>
+    <div class="navlinks">
+      <a href="docs.html">Docs</a>
+      <a class="on" href="getstarted.html">Get Started</a>
+      <a href="download.html">Download</a>
+      <a href="community.html">Community</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <section>
+      <div class="sec-head">
+        <h2>Three steps, tiny code</h2>
+        <p>From empty folder to running program in about a minute.</p>
+      </div>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="n">1</div>
+          <div class="body">
+            <h3>Install the interpreter</h3>
+            <p>Grab the runtime for your OS from the <a href="download.html">download page</a>, or pull it straight from PyPI:</p>
+            <div class="term" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 4px 0 #8f6c3b;padding:10px">
+              <div class="screen" style="padding:12px 16px 4px;font-size:13.5px">
+                <pre>$ pip install vulpin<span class="caret"></span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="n">2</div>
+          <div class="body">
+            <h3>Write a .vul file</h3>
+            <p>Create <strong>hello.vul</strong> in any folder. Every line is one command.</p>
+            <div class="term" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 4px 0 #8f6c3b;padding:10px">
+              <div class="screen" style="padding:12px 16px 4px;font-size:13.5px">
+                <pre><span class="tk-c">G</span> <span class="tk-s">"Hello World!"</span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="n">3</div>
+          <div class="body">
+            <h3>Run it</h3>
+            <p>Feed the file to the interpreter and watch it print.</p>
+            <div class="term" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 4px 0 #8f6c3b;padding:10px">
+              <div class="screen" style="padding:12px 16px 4px;font-size:13.5px">
+                <pre><span class="tk-m">$</span> vulpin hello.vul
+Hello World!<span class="caret"></span></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:34px">
+        <a class="btn green" href="docs.html">See what each command does</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div>made by ilunonix, chipped by the vulpin community</div>
+    <div class="copyright">Â© 2026 vulpin-lang Â· released under the MIT license</div>
+  </footer>
+
+</body>
+</html>
