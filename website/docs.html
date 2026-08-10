@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Docs â€” Vulpin</title>
+  <title>Docs — Vulpin</title>
   <meta name="description" content="Vulpin documentation: every single-character command, typed input, variables, control flow, functions and error handling.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="logo.png" type="image/png">
@@ -31,7 +31,7 @@
       <div class="docs-grid">
 
         <div class="doc-card">
-          <h3><span>G / P</span> â€” output</h3>
+          <h3><span>G / P</span> — output</h3>
           <p><strong>G</strong> prints a value with a newline. <strong>P</strong> prints without one. Math works too.</p>
           <code class="mono">G"Hello"          <span style="color:#5f8a4c"># prints with newline</span>
 P"Loading..."     <span style="color:#5f8a4c"># prints without newline</span>
@@ -39,7 +39,7 @@ G 5 + 3          <span style="color:#5f8a4c"># prints 8</span></code>
         </div>
 
         <div class="doc-card">
-          <h3><span>K</span> â€” typed input</h3>
+          <h3><span>K</span> — typed input</h3>
           <p>Read input straight into a variable. The trailing type letter decides what counts as valid.</p>
           <code class="mono">K user "Your name: "
 K age  "Age: " I     <span style="color:#5f8a4c"># integer, default 0</span>
@@ -49,17 +49,17 @@ K letter "Guess: " L <span style="color:#5f8a4c"># single char</span></code>
         </div>
 
         <div class="doc-card">
-          <h3><span>=</span> â€” variables</h3>
+          <h3><span>=</span> — variables</h3>
           <p>Assign with <strong>=</strong>, add to in place with <strong>A</strong>, replace substrings with <strong>S</strong>, delete with <strong>D</strong>.</p>
           <code class="mono">name="Vul"
 A"x"+5              <span style="color:#5f8a4c"># x = x + 5</span>
 S"msg""o""0"        <span style="color:#5f8a4c"># replace "o" with "0"</span>
 D"y"                <span style="color:#5f8a4c"># delete y</span></code>
-          <p>String shortcuts: <span class="tk-c">.U</span> upper Â· <span class="tk-c">.L</span> lower Â· <span class="tk-c">.S</span> strip Â· <span class="tk-c">.T</span> title Â· <span class="tk-c">.C</span> capitalize</p>
+          <p>String shortcuts: <span class="tk-c">.U</span> upper · <span class="tk-c">.L</span> lower · <span class="tk-c">.S</span> strip · <span class="tk-c">.T</span> title · <span class="tk-c">.C</span> capitalize</p>
         </div>
 
         <div class="doc-card">
-          <h3><span>? : ;</span> â€” if / else</h3>
+          <h3><span>? : ;</span> — if / else</h3>
           <p>Test a condition, branch, and close the block.</p>
           <code class="mono">? score >= 90
     G"A"
@@ -72,7 +72,7 @@ D"y"                <span style="color:#5f8a4c"># delete y</span></code>
         </div>
 
         <div class="doc-card">
-          <h3><span>@ &</span> â€” while loop</h3>
+          <h3><span>@ &</span> — while loop</h3>
           <p><strong>@</strong> opens the loop, <strong>&</strong> closes it. <strong>@1</strong> loops forever.</p>
           <code class="mono">i=0
 @ i < 5
@@ -86,7 +86,7 @@ D"y"                <span style="color:#5f8a4c"># delete y</span></code>
         </div>
 
         <div class="doc-card">
-          <h3><span>O</span> â€” for-range</h3>
+          <h3><span>O</span> — for-range</h3>
           <p>Iterate a variable over a start, end and step.</p>
           <code class="mono">O i 0 5          <span style="color:#5f8a4c"># 0,1,2,3,4</span>
     G i
@@ -98,8 +98,8 @@ O x 10 0 -2      <span style="color:#5f8a4c"># 10,8,6,4,2</span>
         </div>
 
         <div class="doc-card">
-          <h3><span>J / L</span> â€” jumps &amp; labels</h3>
-          <p><strong>J</strong> jumps to a label defined by <strong>L</strong> â€” with or without a condition.</p>
+          <h3><span>J / L</span> — jumps &amp; labels</h3>
+          <p><strong>J</strong> jumps to a label defined by <strong>L</strong> — with or without a condition.</p>
           <code class="mono">J end
 G"Skipped"
 L end
@@ -107,7 +107,7 @@ G"Done"</code>
         </div>
 
         <div class="doc-card">
-          <h3><span>W V N Z</span> â€” switch / case</h3>
+          <h3><span>W V N Z</span> — switch / case</h3>
           <p>Match one value against many. <strong>N</strong> starts the default case, <strong>Z</strong> closes the switch.</p>
           <code class="mono">W fruit
 V"banana"
@@ -120,7 +120,7 @@ Z</code>
         </div>
 
         <div class="doc-card">
-          <h3><span>F R ~</span> â€” functions</h3>
+          <h3><span>F R ~</span> — functions</h3>
           <p>Define with <strong>F</strong>, return with <strong>R</strong>, close with <strong>~</strong>.</p>
           <code class="mono">F add(a, b)
     R a + b
@@ -134,7 +134,7 @@ greet("World")</code>
         </div>
 
         <div class="doc-card">
-          <h3><span>U</span> â€” imports</h3>
+          <h3><span>U</span> — imports</h3>
           <p>Pull in C or Vulpin modules with <strong>U</strong>, then use them with the dot operator.</p>
           <code class="mono">U"os"
 G os.getcwd()
@@ -145,7 +145,7 @@ G math.sqrt(16)</code>
         </div>
 
         <div class="doc-card">
-          <h3><span>T C Y</span> â€” error handling</h3>
+          <h3><span>T C Y</span> — error handling</h3>
           <p>Wrap a fragile block in <strong>T</strong>, catch with <strong>C"err"</strong>, close with <strong>Y</strong>.</p>
           <code class="mono">T
     x=10
@@ -158,7 +158,7 @@ G"Continues..."</code>
         </div>
 
         <div class="doc-card">
-          <h3><span>D</span> â€” delay</h3>
+          <h3><span>D</span> — delay</h3>
           <p>Pause for a number of seconds, or for the value stored in a variable.</p>
           <code class="mono">D1          <span style="color:#5f8a4c"># wait 1 second</span>
 D0.5        <span style="color:#5f8a4c"># wait half a second</span>
@@ -166,18 +166,18 @@ D delay     <span style="color:#5f8a4c"># wait variable</span></code>
         </div>
 
         <div class="doc-card">
-          <h3><span>$</span> â€” the runtime</h3>
+          <h3><span>$</span> — the runtime</h3>
           <p>Run, build and check the version from the terminal.</p>
           <code class="mono">vulpin hello.vul   <span style="color:#5f8a4c"># run a program</span>
 vulpin build       <span style="color:#5f8a4c"># build your app</span>
-vulpin version     <span style="color:#5f8a4c"># â†’ Vul 0.8</span></code>
-          <p>Spaces are optional after commands â€” <span class="tk-c">G"Hi"</span> and <span class="tk-c">G "Hi"</span> both work.</p>
+vulpin version     <span style="color:#5f8a4c"># → Vul 0.9</span></code>
+          <p>Spaces are optional after commands — <span class="tk-c">G"Hi"</span> and <span class="tk-c">G "Hi"</span> both work.</p>
         </div>
 
       </div>
 
       <div style="text-align:center;margin-top:34px">
-        <a class="btn ghost" href="getstarted.html">â† Back to the 3 steps</a>
+        <a class="btn ghost" href="getstarted.html">← Back to the 3 steps</a>
       </div>
     </section>
 
@@ -185,7 +185,7 @@ vulpin version     <span style="color:#5f8a4c"># â†’ Vul 0.8</span></code>
 
   <footer>
     <div>made by ilunonix, chipped by the vulpin community</div>
-    <div class="copyright">Â© 2026 vulpin-lang Â· released under the MIT license</div>
+    <div class="copyright">© 2026 vulpin-lang · released under the MIT license</div>
   </footer>
 
 </body>
