@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vulpin"
-version = "0.8"
+version = "0.9"
 description = "Vulpin programming language"
 readme = "README.md"
 license = {text = "MIT"}
