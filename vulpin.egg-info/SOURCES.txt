@@ -1,0 +1,7 @@
+LICENSE
+README.md
+setup.py
+vulpin.egg-info/PKG-INFO
+vulpin.egg-info/SOURCES.txt
+vulpin.egg-info/dependency_links.txt
+vulpin.egg-info/top_level.txt

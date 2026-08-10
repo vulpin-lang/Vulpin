@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: vulpin
+Version: 0.8
+Summary: Vulpin programming language
+License-File: LICENSE
+Dynamic: license-file
+Dynamic: summary
