@@ -13,7 +13,7 @@ if not exist "%BINARY%" (
         exit /b 1
     )
     pushd "%PROJECT_ROOT%\src"
-    gcc -O2 -o vulpin.exe main.c lexer.c parser.c vm.c vulpin.c -lm
+    gcc -O2 -o vulpin.exe vulpin.c vm.c -lm
     if errorlevel 1 (
         echo [vulpin] ERROR: Build failed.
         popd

@@ -337,7 +337,7 @@ vulpin version
 
 Output:
 ```text
-Vul 0.8
+Vul 0.9
 ```
 
 # <img src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" width="35" alt="build"> Build your apps!

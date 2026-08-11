@@ -1,0 +1,5 @@
+.tcc/
+__.pycache__/
+*.egg-info/
+build/
+src/*.exe

@@ -36,7 +36,7 @@ e:
 
 int main(int c,char**v){
     if(c>1&&!strcmp(v[1],"version")){
-        puts("Vulpin 0.8");
+        puts("Vulpin 0.9");
         return 0;
     }
 

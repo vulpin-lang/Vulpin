@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download — Vulpin</title>
-  <meta name="description" content="Download and install the Vulpin interpreter for Windows, macOS or Linux, or grab it from PyPI with pip.">
+  <meta name="description" content="Download and install the Vulpin interpreter for Windows, macOS or Linux, or build it from source.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="logo.png" type="image/png">
 </head>
@@ -45,9 +45,9 @@
           <a class="go" href="https://github.com/vulpin-lang/Vulpin/releases/tag/V0.9">Download .run</a>
         </div>
         <div class="slot">
-          <div class="tag">PyPI</div>
-          <div class="about"><b>pip install vulpin</b><span>the only command your terminal needs</span></div>
-          <a class="go" href="#" id="copycmd">Copy command ↓</a>
+          <div class="tag">Source</div>
+          <div class="about"><b>Build from source</b><span>clone the repo and compile it yourself</span></div>
+          <a class="go" href="https://github.com/vulpin-lang/Vulpin">Go to the repo</a>
         </div>
       </div>
 
@@ -82,21 +82,9 @@
   </main>
 
   <footer>
-    <div>made by ilunonix, chipped by the vulpin community</div>
+    <div>made by Vulpin, chipped by the vulpin community</div>
     <div class="copyright">© 2026 vulpin-lang · released under the MIT license</div>
   </footer>
-
-  <script>
-    document.getElementById('copycmd').addEventListener('click', function (e) {
-      e.preventDefault();
-      navigator.clipboard.writeText('pip install vulpin').then(function () {
-        var btn = document.getElementById('copycmd');
-        var old = btn.textContent;
-        btn.textContent = 'Copied! ✓';
-        setTimeout(function () { btn.textContent = old; }, 1200);
-      });
-    });
-  </script>
 
 </body>
 </html>

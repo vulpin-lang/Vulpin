@@ -15,11 +15,11 @@ SRC_DIR = os.path.join(PROJECT_ROOT, 'src')
 DOCS_DIR = os.path.join(PROJECT_ROOT, 'docs')
 WEB_DIR = os.path.join(PROJECT_ROOT, 'website')
 LAUNCHER_SRC = os.path.join(PROJECT_ROOT, 'bin', 'vulpin.bat' if IS_WIN else 'vulpin.sh')
-C_SOURCES = ['main.c', 'lexer.c', 'parser.c', 'vm.c', 'vulpin.c']
+C_SOURCES = ['vulpin.c', 'vm.c']
 
 TCC_URLS = {
-    'win64': 'https://github.com/skeeto/w64devkit/releases/download/v2.0.0/w64devkit-x64-2.0.0.zip',
-    'win32': 'https://github.com/skeeto/w64devkit/releases/download/v2.0.0/w64devkit-i686-2.0.0.zip',
+    'win64': 'https://github.com/skeeto/w64devkit/releases/download/v2.9.1/w64devkit-x64-2.9.1.7z.exe',
+    'win32': 'https://github.com/skeeto/w64devkit/releases/download/v2.9.1/w64devkit-x64-2.9.1.7z.exe',
     'linux64': 'https://bellard.org/tcc/tcc-0.9.27.tar.bz2',
 }
 TCC_DIR = os.path.join(PROJECT_ROOT, '.tcc')
@@ -40,7 +40,13 @@ def find_compiler():
         result = shutil.which(name)
         if result:
             return result, 'gcc'
-    tcc_path = os.path.join(TCC_DIR, 'bin', 'gcc.exe' if IS_WIN else 'tcc')
+    for gcc_path in [
+        os.path.join(TCC_DIR, 'bin', 'gcc.exe'),
+        os.path.join(TCC_DIR, 'w64devkit', 'bin', 'gcc.exe'),
+    ]:
+        if os.path.exists(gcc_path):
+            return gcc_path, 'gcc'
+    tcc_path = os.path.join(TCC_DIR, 'bin', 'tcc')
     if os.path.exists(tcc_path):
         return tcc_path, 'tcc'
     return None, None
@@ -67,7 +73,9 @@ def download_and_install_tcc(progress_callback=None):
     if progress_callback:
         progress_callback("extracting compiler...")
 
-    if archive_path.endswith('.zip'):
+    if archive_path.endswith('.7z.exe') or archive_path.endswith('.exe'):
+        subprocess.run([archive_path, '-y', '-o' + TCC_DIR], check=True)
+    elif archive_path.endswith('.zip'):
         with zipfile.ZipFile(archive_path, 'r') as z:
             z.extractall(TCC_DIR)
     elif archive_path.endswith(('.tar.bz2', '.tar.gz', '.tgz')):
@@ -103,8 +111,7 @@ def build_vulpin(progress_callback=None):
 
     if makefile and os.path.exists(makefile) and compiler_path:
         env = os.environ.copy()
-        if compiler_type == 'tcc':
-            env['CC'] = compiler_path
+        env['CC'] = compiler_path
         if progress_callback:
             progress_callback("building with makefile...")
         result = subprocess.run(['make', '-C', SRC_DIR], capture_output=True, text=True, env=env)
@@ -125,8 +132,12 @@ def build_vulpin(progress_callback=None):
 
     if progress_callback:
         progress_callback(f"compiling with {compiler_type}...")
+    env = os.environ.copy()
+    cc_dir = os.path.dirname(os.path.abspath(compiler_path))
+    if cc_dir not in env.get('PATH', '').split(os.pathsep):
+        env['PATH'] = cc_dir + os.pathsep + env.get('PATH', '')
     cmd = [compiler_path, '-O2', '-o', binary_path] + sources + ['-lm']
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, env=env)
     if result.returncode != 0:
         raise RuntimeError(f"{compiler_type} failed:\n{result.stderr}")
 
@@ -177,6 +188,7 @@ class ConsoleInstallCommand(Command):
     def finalize_options(self): pass
 
     def run(self):
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
         def log(msg):
             print(f"[vulpin] {msg}")
 
@@ -186,6 +198,7 @@ class ConsoleInstallCommand(Command):
         log("running standard install...")
         self.distribution.run_command('build')
         install_cmd = self.distribution.get_command_obj('install')
+        install_cmd.user = True
         install_cmd.ensure_finalized()
         _install.run(install_cmd)
 
@@ -228,7 +241,7 @@ class GuiInstallCommand(Command):
         container.pack(expand=True, fill="both", padx=30, pady=30)
 
         logo = ctk.CTkLabel(
-            container, text="vulpin 0.8",
+            container, text="vulpin 0.9",
             font=ctk.CTkFont(size=36, weight="bold", family="monospace"),
             text_color="#ffffff"
         )
@@ -334,6 +347,7 @@ class GuiInstallCommand(Command):
                     animate_progress(0.5, 400)
                     self.distribution.run_command('build')
                     install_cmd = self.distribution.get_command_obj('install')
+                    install_cmd.user = True
                     install_cmd.ensure_finalized()
                     _install.run(install_cmd)
 
@@ -376,7 +390,7 @@ class GuiInstallCommand(Command):
 
 setup(
     name='vulpin',
-    version='0.8',
+    version='0.9',
     description='Vulpin programming language',
     packages=[],
     scripts=[],

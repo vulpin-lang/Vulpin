@@ -267,6 +267,7 @@ section{padding:34px 0 12px}
   background:repeating-linear-gradient(180deg, rgba(255,255,255,.035) 0 2px, transparent 2px 4px);
 }
 .screen pre{white-space:pre-wrap;word-break:break-word}
+.ln{display:block;min-height:1.9em}
 .tk-c{color:#ffb35c;font-weight:700}
 .tk-s{color:#9ee37b}
 .tk-n{color:#eab35a}

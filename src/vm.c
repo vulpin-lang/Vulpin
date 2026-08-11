@@ -12,6 +12,39 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#include <direct.h>
+#ifndef strndup
+static char *strndup(const char *s, size_t n) {
+    size_t l = 0;
+    while (l < n && s[l]) l++;
+    char *d = malloc(l + 1);
+    if (d) { memcpy(d, s, l); d[l] = 0; }
+    return d;
+}
+#endif
+#ifndef getcwd
+static char *g_win_getcwd(char *b, size_t n) { return _getcwd(b, (int)n); }
+#define getcwd g_win_getcwd
+#endif
+#ifndef getline
+#include <sys/types.h>
+static ssize_t g_win_getline(char **line, size_t *cap, FILE *fp) {
+    if (*line) { free(*line); *line = NULL; }
+    char c;
+    *cap = 0;
+    while (fread(&c, 1, 1, fp) == 1) {
+        char *t = realloc(*line, *cap + 2);
+        if (!t) return -1;
+        *line = t;
+        (*line)[(*cap)++] = c;
+        if (c == '\n') break;
+    }
+    if (*cap == 0 && feof(fp)) return -1;
+    (*line)[*cap] = '\0';
+    return (ssize_t)*cap;
+}
+#define getline g_win_getline
+#endif
 #else
 #include <unistd.h>
 #endif
