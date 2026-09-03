@@ -1,6 +1,0 @@
-G"Hello World!" // Prints but it goes to the next line
-G"This is cool message isnt it??"
-G"Well try! :D"
-
-P"Hi, " // Prints but doesn't goes to the next line
-P"Bye!"
