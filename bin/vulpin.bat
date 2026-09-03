@@ -1,27 +1,5 @@
 @echo off
-setlocal enabledelayedexpansion
-
-set "SCRIPT_DIR=%~dp0"
-set "PROJECT_ROOT=%SCRIPT_DIR%.."
-set "BINARY=%PROJECT_ROOT%\src\vulpin.exe"
-
-if not exist "%BINARY%" (
-    echo [vulpin] Building from source...
-    where gcc >nul 2>&1
-    if errorlevel 1 (
-        echo [vulpin] ERROR: gcc not found.
-        exit /b 1
-    )
-    pushd "%PROJECT_ROOT%\src"
-    gcc -O2 -o vulpin.exe vulpin.c vm.c -lm
-    if errorlevel 1 (
-        echo [vulpin] ERROR: Build failed.
-        popd
-        exit /b 1
-    )
-    popd
-    echo [vulpin] Build complete.
-)
-
-"%BINARY%" %*
-endlocal
+set "D=%~dp0"
+set "B=%D%..\src\vulpin.exe"
+if not exist "%B%" (echo [vulpin] Building...&where gcc>nul 2>&1||(echo gcc not found&exit/b1)&pushd "%D%..\src"&gcc -O2 -o vulpin.exe vulpin.c vm.c -lm||(echo Build failed&popd&exit/b1)&popd&echo Done)
+"%B%" %*
