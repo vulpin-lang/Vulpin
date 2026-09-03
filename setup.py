@@ -137,7 +137,7 @@ class GuiInstallCommand(Command):
   try:import customtkinter as ctk
   except ImportError:
    print("customtkinter not found. Run: pip install customtkinter");print("Falling back to console install...\n");self.distribution.run_command('console');return
-  ctk.set_appearance_mode("dark");ctk.set_default_color_theme("blue");app=ctk.CTk();app.title("Vulpin");app.geometry("400x440");app.resizable(False,False);app.configure(fg_color="#0d0d0d");app.update_idletasks();x=(app.winfo_screenwidth()//2)-200;y=(app.winfo_screenheight()//2)-220;app.geometry(f"+{x}+{y}");container=ctk.CTkFrame(app,fg_color="transparent");container.pack(expand=True,fill="both",padx=30,pady=30);logo=ctk.CTkLabel(container,text="vulpin 0.9",font=ctk.CTkFont(size=36,weight="bold",family="monospace"),text_color="#ffffff");logo.pack(pady=(0,4));tagline=ctk.CTkLabel(container,text="Wifi requirement, to download some packages.",font=ctk.CTkFont(size=12),text_color="#555555");tagline.pack(pady=(0,20));options_frame=ctk.CTkFrame(container,fg_color="#141414",corner_radius=10);options_frame.pack(pady=(0,20),fill="x",padx=10);docs_var=ctk.BooleanVar(value=True);docs_check=ctk.CTkCheckBox(options_frame,text="Include documentation",font=ctk.CTkFont(size=13),variable=docs_var,fg_color="#C35817",hover_color="#C06901",checkmark_color="#000000",text_color="#aaaaaa");docs_check.pack(anchor="w",padx=15,pady=(12,6));web_var=ctk.BooleanVar(value=True);web_check=ctk.CTkCheckBox(options_frame,text="Include website files",font=ctk.CTkFont(size=13),variable=web_var,fg_color="#C35817",hover_color="#C06901",checkmark_color="#000000",text_color="#aaaaaa");web_check.pack(anchor="w",padx=15,pady=(6,12));progress=ctk.CTkProgressBar(container,width=300,height=6,corner_radius=3,fg_color="#1a1a1a",progress_color="#C35817");progress.pack(pady=(0,15));progress.set(0);status=ctk.CTkLabel(container,text="",font=ctk.CTkFont(size=13),text_color="#666666");status.pack(pady=(0,20));btn=ctk.CTkButton(container,text="install",font=ctk.CTkFont(size=14,weight="bold"),width=160,height=42,corner_radius=21,fg_color="#C35817",hover_color="#C06901",text_color="#000000")
+  ctk.set_appearance_mode("dark");ctk.set_default_color_theme("blue");app=ctk.CTk();app.title("Vulpin");app.geometry("400x380");app.resizable(False,False);app.configure(fg_color="#0d0d0d");app.update_idletasks();x=(app.winfo_screenwidth()//2)-200;y=(app.winfo_screenheight()//2)-190;app.geometry(f"+{x}+{y}");container=ctk.CTkFrame(app,fg_color="transparent");container.pack(expand=True,fill="both",padx=30,pady=30);logo=ctk.CTkLabel(container,text="vulpin 0.9.5",font=ctk.CTkFont(size=36,weight="bold",family="monospace"),text_color="#ffffff");logo.pack(pady=(0,4));tagline=ctk.CTkLabel(container,text="Wifi required to download compiler",font=ctk.CTkFont(size=12),text_color="#555555");tagline.pack(pady=(0,30));progress=ctk.CTkProgressBar(container,width=300,height=6,corner_radius=3,fg_color="#1a1a1a",progress_color="#C35817");progress.pack(pady=(0,15));progress.set(0);status=ctk.CTkLabel(container,text="",font=ctk.CTkFont(size=13),text_color="#666666");status.pack(pady=(0,20));btn=ctk.CTkButton(container,text="install",font=ctk.CTkFont(size=14,weight="bold"),width=160,height=42,corner_radius=21,fg_color="#C35817",hover_color="#C06901",text_color="#000000")
   def safe_update(f):app.after(0,f)
   def set_status(t,c="#666666"):safe_update(lambda:status.configure(text=t,text_color=c))
   def animate_progress(target,duration_ms=300):
@@ -145,13 +145,13 @@ class GuiInstallCommand(Command):
    for i in range(steps):
     val=current+delta*(i+1);safe_update(lambda v=val:progress.set(v));app.after(16)
   def do_install():
-   safe_update(lambda:btn.configure(state="disabled",text="installing",fg_color="#333333"));safe_update(lambda:docs_check.configure(state="disabled"));safe_update(lambda:web_check.configure(state="disabled"))
+   safe_update(lambda:btn.configure(state="disabled",text="installing",fg_color="#333333"))
    def worker():
     try:
-     set_status("compiling sources...");animate_progress(0.15,300)
+     set_status("compiling sources...");animate_progress(0.3,300)
      try:bp=build_vulpin(set_status)
      except TypeError:bp=build_vulpin()
-     set_status("installing runtime...");animate_progress(0.5,400)
+     set_status("installing runtime...");animate_progress(0.7,400)
      try:
       import site
       user_base=getattr(site,'USER_BASE',None)
@@ -176,7 +176,7 @@ class GuiInstallCommand(Command):
        install_binary(bp,scripts_dir)
      set_status("done ✓","#40d070");animate_progress(1.0,300);safe_update(lambda:btn.configure(text="complete",fg_color="#40d070",hover_color="#30c060"))
     except Exception as e:
-     set_status(f"failed: {e}","#e04040");safe_update(lambda:btn.configure(state="normal",text="retry",fg_color="#e04040",hover_color="#d03030"));safe_update(lambda:docs_check.configure(state="normal"));safe_update(lambda:web_check.configure(state="normal"))
+     set_status(f"failed: {e}","#e04040");safe_update(lambda:btn.configure(state="normal",text="retry",fg_color="#e04040",hover_color="#d03030"))
    threading.Thread(target=worker,daemon=True).start()
   btn.configure(command=do_install);btn.pack();app.mainloop()
-setup(name='vulpin',version='0.9.5',description='Vulpin programming language',packages=[],scripts=[],cmdclass={'gui':GuiInstallCommand,'console':ConsoleInstallCommand,'help':HelpCommand})
+setup(name='vulpin',version='0.9',description='Vulpin programming language',packages=[],scripts=[],cmdclass={'gui':GuiInstallCommand,'console':ConsoleInstallCommand,'help':HelpCommand})
