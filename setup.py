@@ -1,8 +1,45 @@
-import os,sys,shutil,subprocess,threading,tarfile,zipfile,urllib.request
+import os,sys,json,shutil,subprocess,threading,tarfile,zipfile,urllib.request
 from setuptools import setup,Command
 from distutils.command.install import install as _install
 IS_WIN=sys.platform=='win32';PROJECT_ROOT=os.path.dirname(os.path.abspath(__file__));SRC_DIR=os.path.join(PROJECT_ROOT,'src')
 TCC_URLS={'win64':'https://github.com/skeeto/w64devkit/releases/download/v2.9.1/w64devkit-x64-2.9.1.7z.exe','win32':'https://github.com/skeeto/w64devkit/releases/download/v2.9.1/w64devkit-x64-2.9.1.7z.exe','linux64':'https://bellard.org/tcc/tcc-0.9.27.tar.bz2'};TCC_DIR=os.path.join(PROJECT_ROOT,'.tcc')
+GIT_URL='https://github.com/vulpin-lang/Vulpin.git';REPO='vulpin-lang/Vulpin';CACHE_DIR=os.path.join(os.path.expanduser('~'),'.vulpin','src-cache')
+def has_source(d):return all(os.path.exists(os.path.join(d,'src',f))for f in('vulpin.c','vm.c'))
+def default_branch():
+ try:
+  req=urllib.request.Request(f'https://api.github.com/repos/{REPO}',headers={'User-Agent':'vulpin-setup'})
+  with urllib.request.urlopen(req,timeout=10)as r:return json.loads(r.read().decode()).get('default_branch','General')
+ except Exception:return'General'
+def clone_or_update_source(pc=None,force=False):
+ """Get a working copy of the Vulpin source tree, cloning/pulling from GitHub
+ when this setup.py isn't already sitting inside a full checkout (e.g. it was
+ downloaded standalone), and refreshing the cache when force=True."""
+ if not force and has_source(PROJECT_ROOT):return SRC_DIR
+ git=shutil.which('git')
+ if git:
+  if os.path.isdir(os.path.join(CACHE_DIR,'.git')):
+   if pc:pc("updating cached Vulpin source...")
+   r=subprocess.run([git,'-C',CACHE_DIR,'pull','--ff-only'],capture_output=True,text=True)
+   if r.returncode!=0:raise RuntimeError(f"git pull failed:\n{r.stderr}")
+  else:
+   if pc:pc("cloning Vulpin source from GitHub...")
+   shutil.rmtree(CACHE_DIR,ignore_errors=True);os.makedirs(os.path.dirname(CACHE_DIR),exist_ok=True)
+   r=subprocess.run([git,'clone','--depth','1',GIT_URL,CACHE_DIR],capture_output=True,text=True)
+   if r.returncode!=0:raise RuntimeError(f"git clone failed:\n{r.stderr}")
+  return os.path.join(CACHE_DIR,'src')
+ branch=default_branch()
+ if pc:pc(f"git not found, downloading source archive ({branch})...")
+ shutil.rmtree(CACHE_DIR,ignore_errors=True);os.makedirs(os.path.dirname(CACHE_DIR),exist_ok=True)
+ ap=CACHE_DIR+'.tar.gz'
+ urllib.request.urlretrieve(f'https://github.com/{REPO}/archive/refs/heads/{branch}.tar.gz',ap)
+ with tarfile.open(ap,'r:gz')as t:
+  names=t.getnames();root=names[0].split('/')[0] if names else None
+  t.extractall(os.path.dirname(CACHE_DIR))
+ os.remove(ap)
+ if root:shutil.move(os.path.join(os.path.dirname(CACHE_DIR),root),CACHE_DIR)
+ if not has_source(CACHE_DIR):raise RuntimeError("downloaded archive is missing expected source files")
+ return os.path.join(CACHE_DIR,'src')
+def ensure_source(pc=None):return clone_or_update_source(pc,force=False)
 def get_tcc_url():
  if IS_WIN:return TCC_URLS['win64'] if sys.maxsize>2**32 else TCC_URLS['win32']
  elif sys.platform=='linux':return TCC_URLS['linux64']
@@ -36,20 +73,21 @@ def download_and_install_tcc(pc=None):
   tb=os.path.join(TCC_DIR,'bin','tcc')
   if os.path.exists(tb):os.chmod(tb,0o755)
  return find_compiler()
-def build_vulpin(pc=None):
- bn='vulpin.exe' if IS_WIN else 'vulpin';bp=os.path.join(SRC_DIR,bn)
- if os.path.exists(bp):
-  st=[os.path.getmtime(os.path.join(SRC_DIR,s))for s in ['vulpin.c','vm.c'] if os.path.exists(os.path.join(SRC_DIR,s))]
+def build_vulpin(pc=None,force_refresh=False):
+ src_dir=clone_or_update_source(pc,force=force_refresh)
+ bn='vulpin.exe' if IS_WIN else 'vulpin';bp=os.path.join(src_dir,bn)
+ if os.path.exists(bp)and not force_refresh:
+  st=[os.path.getmtime(os.path.join(src_dir,s))for s in ['vulpin.c','vm.c'] if os.path.exists(os.path.join(src_dir,s))]
   if st and os.path.getmtime(bp)>=max(st):
    if pc:pc("binary up to date")
    return bp
- mf=os.path.join(SRC_DIR,'makefile');cp,ct=find_compiler()
+ mf=os.path.join(src_dir,'makefile');cp,ct=find_compiler()
  if mf and os.path.exists(mf) and cp:
   env=os.environ.copy();env['CC']=cp
   if pc:pc("building with makefile...")
-  r=subprocess.run(['make','-C',SRC_DIR],capture_output=True,text=True,env=env)
+  r=subprocess.run(['make','-C',src_dir],capture_output=True,text=True,env=env)
   if r.returncode==0 and os.path.exists(bp):return bp
- src=[os.path.join(SRC_DIR,s)for s in ['vulpin.c','vm.c']]
+ src=[os.path.join(src_dir,s)for s in ['vulpin.c','vm.c']]
  ms=[s for s in src if not os.path.exists(s)]
  if ms:raise FileNotFoundError(f"Missing source files: {ms}")
  if not cp:
@@ -73,47 +111,54 @@ def install_binary(bp,isd):
  try:os.chmod(d,0o755)
  except:pass
  return d
+def console_install(distribution,pc,force_refresh=False):
+ pc("building vulpin..." if not force_refresh else "refreshing source and rebuilding vulpin...")
+ bp=build_vulpin(pc,force_refresh=force_refresh)
+ pc("installing...")
+ try:
+  import site
+  user_base=getattr(site,'USER_BASE',None)
+  if user_base:
+   scripts_dir=os.path.join(user_base,'bin')
+   if not os.path.exists(scripts_dir):
+    os.makedirs(scripts_dir,exist_ok=True)
+   d=install_binary(bp,scripts_dir)
+   pc(f"installed vulpin binary to: {d}")
+   pc("done ✓")
+   return
+ except Exception:pass
+ try:
+  distribution.run_command('build')
+  ic=distribution.get_command_obj('install')
+  ic.user=True
+  ic.ensure_finalized()
+  _install.run(ic)
+  d=install_binary(bp,ic.install_scripts)
+  pc(f"installed vulpin binary to: {d}")
+ except Exception as e:
+  pc(f"install failed: {e}, using fallback...")
+  import site
+  user_base=getattr(site,'USER_BASE',None)
+  if user_base:
+   scripts_dir=os.path.join(user_base,'bin')
+   os.makedirs(scripts_dir,exist_ok=True)
+   d=install_binary(bp,scripts_dir)
+   pc(f"installed vulpin binary to: {d}")
+ pc("done ✓")
 class ConsoleInstallCommand(Command):
- description='Install Vulpin from console with progress output';user_options=[]
+ description='Clone/update Vulpin source, build it, and install it from console with progress output';user_options=[]
  def initialize_options(self):pass
  def finalize_options(self):pass
  def run(self):
   sys.stdout.reconfigure(encoding='utf-8',errors='replace')
-  def log(m):print(f"[vulpin] {m}")
-  log("building vulpin...")
-  try:bp=build_vulpin(log)
-  except TypeError:bp=build_vulpin()
-  log("installing...")
-  try:
-   import site
-   user_base=getattr(site,'USER_BASE',None)
-   if user_base:
-    scripts_dir=os.path.join(user_base,'bin')
-    if not os.path.exists(scripts_dir):
-     os.makedirs(scripts_dir,exist_ok=True)
-    d=install_binary(bp,scripts_dir)
-    log(f"installed vulpin binary to: {d}")
-    log("done ✓")
-    return
-  except:pass
-  try:
-   self.distribution.run_command('build')
-   ic=self.distribution.get_command_obj('install')
-   ic.user=True
-   ic.ensure_finalized()
-   _install.run(ic)
-   d=install_binary(bp,ic.install_scripts)
-   log(f"installed vulpin binary to: {d}")
-  except Exception as e:
-   log(f"install failed: {e}, using fallback...")
-   import site
-   user_base=getattr(site,'USER_BASE',None)
-   if user_base:
-    scripts_dir=os.path.join(user_base,'bin')
-    os.makedirs(scripts_dir,exist_ok=True)
-    d=install_binary(bp,scripts_dir)
-    log(f"installed vulpin binary to: {d}")
-  log("done ✓")
+  console_install(self.distribution,lambda m:print(f"[vulpin] {m}"))
+class UpdateCommand(Command):
+ description='Pull the latest Vulpin source (or re-download it), rebuild, and reinstall';user_options=[]
+ def initialize_options(self):pass
+ def finalize_options(self):pass
+ def run(self):
+  sys.stdout.reconfigure(encoding='utf-8',errors='replace')
+  console_install(self.distribution,lambda m:print(f"[vulpin] {m}"),force_refresh=True)
 class HelpCommand(Command):
  description='Show installation help';user_options=[]
  def initialize_options(self):pass
@@ -125,6 +170,9 @@ class HelpCommand(Command):
 ║                                              ║
 ║  Console Installer:                          ║
 ║    python setup.py console                   ║
+║                                              ║
+║  Update to the latest Vulpin source:         ║
+║    python setup.py update                    ║
 ║                                              ║
 ║  To run Vulpin after install:               ║
 ║    vulpin myprogram.vul                     ║
@@ -179,4 +227,4 @@ class GuiInstallCommand(Command):
      set_status(f"failed: {e}","#e04040");safe_update(lambda:btn.configure(state="normal",text="retry",fg_color="#e04040",hover_color="#d03030"))
    threading.Thread(target=worker,daemon=True).start()
   btn.configure(command=do_install);btn.pack();app.mainloop()
-setup(name='vulpin',version='0.9',description='Vulpin programming language',packages=[],scripts=[],cmdclass={'gui':GuiInstallCommand,'console':ConsoleInstallCommand,'help':HelpCommand})
+setup(name='vulpin',version='0.9',description='Vulpin programming language',packages=[],scripts=[],cmdclass={'gui':GuiInstallCommand,'console':ConsoleInstallCommand,'update':UpdateCommand,'help':HelpCommand})
