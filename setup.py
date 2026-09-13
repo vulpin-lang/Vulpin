@@ -11,9 +11,6 @@ def default_branch():
   with urllib.request.urlopen(req,timeout=10)as r:return json.loads(r.read().decode()).get('default_branch','General')
  except Exception:return'General'
 def clone_or_update_source(pc=None,force=False):
- """Get a working copy of the Vulpin source tree, cloning/pulling from GitHub
- when this setup.py isn't already sitting inside a full checkout (e.g. it was
- downloaded standalone), and refreshing the cache when force=True."""
  if not force and has_source(PROJECT_ROOT):return SRC_DIR
  git=shutil.which('git')
  if git:
@@ -185,7 +182,7 @@ class GuiInstallCommand(Command):
   try:import customtkinter as ctk
   except ImportError:
    print("customtkinter not found. Run: pip install customtkinter");print("Falling back to console install...\n");self.distribution.run_command('console');return
-  ctk.set_appearance_mode("dark");ctk.set_default_color_theme("blue");app=ctk.CTk();app.title("Vulpin");app.geometry("400x380");app.resizable(False,False);app.configure(fg_color="#0d0d0d");app.update_idletasks();x=(app.winfo_screenwidth()//2)-200;y=(app.winfo_screenheight()//2)-190;app.geometry(f"+{x}+{y}");container=ctk.CTkFrame(app,fg_color="transparent");container.pack(expand=True,fill="both",padx=30,pady=30);logo=ctk.CTkLabel(container,text="vulpin 0.9.5",font=ctk.CTkFont(size=36,weight="bold",family="monospace"),text_color="#ffffff");logo.pack(pady=(0,4));tagline=ctk.CTkLabel(container,text="Wifi required to download compiler",font=ctk.CTkFont(size=12),text_color="#555555");tagline.pack(pady=(0,30));progress=ctk.CTkProgressBar(container,width=300,height=6,corner_radius=3,fg_color="#1a1a1a",progress_color="#C35817");progress.pack(pady=(0,15));progress.set(0);status=ctk.CTkLabel(container,text="",font=ctk.CTkFont(size=13),text_color="#666666");status.pack(pady=(0,20));btn=ctk.CTkButton(container,text="install",font=ctk.CTkFont(size=14,weight="bold"),width=160,height=42,corner_radius=21,fg_color="#C35817",hover_color="#C06901",text_color="#000000")
+  ctk.set_appearance_mode("dark");ctk.set_default_color_theme("blue");app=ctk.CTk();app.title("Vulpin");app.geometry("400x380");app.resizable(False,False);app.configure(fg_color="#0d0d0d");app.update_idletasks();x=(app.winfo_screenwidth()//2)-200;y=(app.winfo_screenheight()//2)-190;app.geometry(f"+{x}+{y}");container=ctk.CTkFrame(app,fg_color="transparent");container.pack(expand=True,fill="both",padx=30,pady=30);logo=ctk.CTkLabel(container,text="vulpin 0.9.9",font=ctk.CTkFont(size=36,weight="bold",family="monospace"),text_color="#ffffff");logo.pack(pady=(0,4));tagline=ctk.CTkLabel(container,text="Wifi required to download compiler",font=ctk.CTkFont(size=12),text_color="#555555");tagline.pack(pady=(0,30));progress=ctk.CTkProgressBar(container,width=300,height=6,corner_radius=3,fg_color="#1a1a1a",progress_color="#C35817");progress.pack(pady=(0,15));progress.set(0);status=ctk.CTkLabel(container,text="",font=ctk.CTkFont(size=13),text_color="#666666");status.pack(pady=(0,20));btn=ctk.CTkButton(container,text="install",font=ctk.CTkFont(size=14,weight="bold"),width=160,height=42,corner_radius=21,fg_color="#C35817",hover_color="#C06901",text_color="#000000")
   def safe_update(f):app.after(0,f)
   def set_status(t,c="#666666"):safe_update(lambda:status.configure(text=t,text_color=c))
   def animate_progress(target,duration_ms=300):
@@ -227,4 +224,4 @@ class GuiInstallCommand(Command):
      set_status(f"failed: {e}","#e04040");safe_update(lambda:btn.configure(state="normal",text="retry",fg_color="#e04040",hover_color="#d03030"))
    threading.Thread(target=worker,daemon=True).start()
   btn.configure(command=do_install);btn.pack();app.mainloop()
-setup(name='vulpin',version='0.9',description='Vulpin programming language',packages=[],scripts=[],cmdclass={'gui':GuiInstallCommand,'console':ConsoleInstallCommand,'update':UpdateCommand,'help':HelpCommand})
+setup(name='vulpin',version='0.9.9',description='Vulpin programming language',packages=[],scripts=[],cmdclass={'gui':GuiInstallCommand,'console':ConsoleInstallCommand,'update':UpdateCommand,'help':HelpCommand})
