@@ -135,6 +135,52 @@ D"y"               # Delete variable
 | `.T` | `title()` | `"hi there".T` → `"Hi There"` |
 | `.C` | `capitalize()` | `"hello".C` → `"Hello"` |
 
+---
+
+### <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="24" alt="lists dicts sets"> Lists, Dicts & Sets
+
+```basic
+l=[1, 2, 3]
+G l              # [1, 2, 3]
+G l[0]           # 1
+G l[-1]          # 3 (negative index counts from the end)
+l[0]=99          # index assignment
+G l              # [99, 2, 3]
+
+d={"a":1, "b":2}
+G d["a"]         # 1
+d["c"]=3         # add/overwrite a key
+G d              # {"c": 3, "b": 2, "a": 1}  (Dict/Set order is unspecified)
+
+s={1, 2, 3}      # a set is just a brace-list with no ":"
+G s+{4}          # union
+G s-{2}          # difference
+
+empty={}         # empty braces are always an empty Dict
+```
+
+**Membership**, with `in`:
+
+```basic
+? 2 in s
+    G"found it"
+;
+```
+
+**Built-in functions:**
+| Function | Does | Example |
+|----------|------|---------|
+| `len(x)` | length of a List/Dict/Set/Str | `len(l)` → `3` |
+| `push(l, v)` | append `v` to List `l` (mutates) | `push(l, 4)` |
+| `pop(l)` | remove & return the last item | `pop(l)` |
+| `keys(d)` | List of a Dict's keys | `keys(d)` |
+| `values(d)` | List of a Dict's values | `values(d)` |
+
+> [!NOTE]
+> Lists, Dicts and Sets are references, same as in Python — assigning or passing one around shares the same data, so `push`/`pop`/index-assign inside a function are visible to the caller.
+
+---
+
 ### <img src="https://github.com/user-attachments/assets/4ffc9f00-dfca-48ed-99f5-c17fe37a2fde" width="24" alt="delay"> Delay
 
 ```basic
