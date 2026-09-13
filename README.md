@@ -28,7 +28,7 @@
 
 - Then tab to the Download button on novbar
 
-- and Download and Install the version of Vulpin that you want! 
+- Download and Install the version of Vulpin that you want! 
 
 or Download source!
 
