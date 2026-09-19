@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/bb805288-2c59-46e1-811d-bac9ca7e40db" width="80%" alt="Vulpin Banner">
+  <img src="https://github.com/user-attachments/assets/7b936d89-db83-4a69-b157-dc5680c15d7e" width="80%" alt="Banner">
 </p>
 
 <p align="center">
