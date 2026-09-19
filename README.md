@@ -35,10 +35,7 @@ or Download source!
 *Notice:* **Run as root**
 
 ```
-pip install customtkinter
-```
-```
-python setup.py gui  
+python setup.py
 ```
 
 If you got Permission Denied, You didn't run them as Root.
@@ -48,6 +45,12 @@ If you got Permission Denied, You didn't run them as Root.
 1. **Create a `.vul` file**. Like `hello.vul`:
    ```basic
    G "Hello World!"
+   G 'Hello World :D'
+   G '''
+    Hello World??
+    I can print more text
+    here!!!
+   '''
    ```
 2. **Run it**:
    ```basic
@@ -194,17 +197,17 @@ D delay    # wait the value of variable
 
 ### <img src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" width="24" alt="modules"> Imports
 
-You can Import C or Vulpin Modules with using ```U```.
+You can Import Vulpin Modules with using ```U```.
 
 ```basic
-U"os"
 G os.getcwd()
 os.system("echo Hello")
-
+os.system(ls)
 U"math"
 G math.sqrt(16)
 ```
-
+##### Fun Fact
+`os.system()` and `os()` and `o()` are the same!
 
 ## <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="28" alt="control flow"> Control Flow
 
@@ -213,16 +216,18 @@ G math.sqrt(16)
 
 ```basic
 score=85
-? score >= 90
+? score m 90 # m means >=
     G"A"
 :
-? score >= 80
+? score m 80 # m means >=
     G"B"
 :
     G"C"
 ;
 ;
 ```
+
+and also `<=` means `l` if you want to use.
 
 
 ### <img src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" width="24" alt="jump"> Conditional Jump
@@ -330,6 +335,17 @@ Continues...
 
 ---
 
+## <img src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" width="28" alt="basic syntax"> Inline Commands
+
+You can write all of your commands just in a line by using `;`!!
+
+For example:
+```
+a=5;?a==5;G"yes it is!";
+```
+In a word: `; breaks each command's`
+
+---
 
 ## <img src="https://github.com/user-attachments/assets/9d3da031-73c9-4067-a40d-deebb60c8835" width="28" alt="complete examples"> Complete Examples
 
@@ -384,12 +400,6 @@ vulpin version
 Output:
 ```text
 Vul 0.9
-```
-
-# <img src="https://github.com/user-attachments/assets/b5b7b282-5fa6-4c58-84dc-3ec68868d236" width="35" alt="build"> Build your apps!
-
-```
-vulpin build
 ```
 
 ---
