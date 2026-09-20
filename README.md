@@ -208,6 +208,7 @@ G math.sqrt(16)
 ```
 ##### Fun Fact
 `os.system()` and `os()` and `o()` are the same!
+and you can write like: `o"echo hi"!!` with no `()`!!
 
 ## <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="28" alt="control flow"> Control Flow
 
@@ -399,7 +400,7 @@ vulpin version
 
 Output:
 ```text
-Vul 0.9
+Vulpin 1.0.1
 ```
 
 ---
