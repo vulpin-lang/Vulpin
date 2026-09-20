@@ -1,8 +1,5 @@
-Vulpin is a programming language that made by Armin Ghasemi (BatScript). which he wanted to write a programming language which can build smallest Possible Program's.
-
-
-Best Contributes, can build cool stuff together, that's the thing that we believe.
-
+Vulpin made by Armin Ghassemi, he made vulpin to write smallest possible programs.
+---
 Contributes:
 
 dragprog (stefand-0)
@@ -14,6 +11,6 @@ Ahb1403
 Bat-Script
 
 Sponsers:
-Fluxcast: Domain Sponsor, Website moderator.
+Fluxcast: Domain Sponsor.
 
-Thanks for you all Stargazers who gives us energy to work together.
+Thanks for you all Stargazers :)
