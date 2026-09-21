@@ -141,7 +141,7 @@ N="""⠀⠀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 def bn(s='Ninjutsu'):
  spx();o()
  for i,l in enumerate(N):o(f"  {C['b'] if i<8 else C['o']}{l}{C['X']}")
- o(f"\n  {C['d']}                v1.0.1  ·  {s}{C['X']}\n")
+ o(f"\n  {C['d']}                v1.0.2  ·  {s}{C['X']}\n")
 # ── SOURCE ──
 def gs(force=0):
  if not force and hs(R):return S
@@ -506,5 +506,5 @@ if len(sys.argv)<2 or(sys.argv[1]not in _K and not sys.argv[1].startswith('-')):
  try:mm()
  except KeyboardInterrupt:o();wn('interrupted');sys.exit(130)
  sys.exit(0)
-setup(name='vulpin',version='1.0.1',description='Vulpin programming language',
+setup(name='vulpin',version='1.0.2',description='Vulpin programming language',
       packages=[],scripts=[],cmdclass={'console':CI,'update':UP,'fix':FX,'help':HP})
