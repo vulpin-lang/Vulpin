@@ -363,7 +363,7 @@ U"random"
 secret=random.randint(1,10)
 tries=0
 L guess
-K"num""Guess (1-10): ""I"
+Knum"Guess (1-10): ""I"
 tries=tries+1
 ? num=secret
     G"Correct! Tries: "+tries
