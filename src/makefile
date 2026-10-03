@@ -17,7 +17,7 @@ B      := \033[0;34m
 C      := \033[0;36m
 ###
 
-SRCS   = vulpin.c vm.c
+SRCS   = vulpin.c vm.c repl.c
 TARGET = vulpin
 
 all: $(TARGET)
