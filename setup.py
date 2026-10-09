@@ -116,32 +116,23 @@ def _ex(a,d):
   if shutil.which('7z'):P.run(['7z','x','-y','-o'+d,a],check=1);return
   P.run([a,'-y','-o'+d],check=1)
  else:raise RuntimeError(f'unknown archive: {a}')
-def hs(d):return all(os.path.exists(os.path.join(d,'src',f))for f in('vulpin.c','vm.c'))
+def hs(d):return all(os.path.exists(os.path.join(d,'src',f))for f in('vulpin.c','vm.c','repl.c'))
 def db():
  try:
   rq=U.Request(f'https://api.github.com/repos/{RP}',headers={'User-Agent':'v'})
   with U.urlopen(rq,timeout=10)as x:return json.loads(x.read().decode()).get('default_branch','General')
  except:return'General'
 # ── ASCII ART BANNER ──
-N="""⠀⠀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⢼⣿⠋⣡⣴⣶⠶⠶⠶⠶⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠈⢿⣧⣀⠈⢿⣆⠀⠀⠀⠀⠙⠻⣦⡀⠀⠀⠀⠀⠀⠀⣠⣴⠾⠛⠛⠛⠉⠀
-⠀⠀⢠⡈⠛⢿⣾⣿⣦⡀⠀⠀⠀⠀⠈⢿⣄⠀⠀⠀⢠⡾⠋⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠘⣧⡀⠀⠈⠙⢿⣿⣦⡀⠀⠀⠀⠈⢿⡄⠀⢠⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠘⠁⠀⠀⠀⠀⠙⢿⣿⣦⡀⠀⠀⢸⣷⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⡀⠸⡟⠀⠘⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⡀⠀⠀⠹⣧⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⢀⣠⣴⠶⠶⠶⠶⠶⣶⣤⣶⠶⠄⠙⢿⣿⣦⡀⠀⠹⣧⠀⠀⠀⠀⠀⠀⠀
-⠀⢠⡿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⡀⠻⠀⠀⠀⠀⠀⠀⠀
-⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⡀⠀⠀⠀⠀⠀⠀
-⠀⠈⢿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠙⢿⣷⣄⠀⠀⠀⠀⠀
-⠀⠀⠀⠙⢷⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⠿⠁⠀⠙⢿⣷⡄⠀⠀⠀
-⠀⠀⠀⠀⠀⠈⠉⠛⠒⠶⠶⠶⠶⠶⠶⠶⠖⠛⠉⠁⠀⠀⠀⠀⠀⠈⠻⢦⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠀""".split('\n')
+W_="""██╗   ██╗██╗   ██╗██╗     ██████╗ ██╗███╗   ██╗
+██║   ██║██║   ██║██║     ██╔══██╗██║████╗  ██║
+██║   ██║██║   ██║██║     ██████╔╝██║██╔██╗ ██║
+╚██╗ ██╔╝██║   ██║██║     ██╔═══╝ ██║██║╚██╗██║
+ ╚████╔╝ ╚██████╔╝███████╗██║     ██║██║ ╚████║
+  ╚═══╝   ╚═════╝ ╚══════╝╚═╝     ╚═╝╚═╝  ╚═══╝""".split('\n')
 def bn(s='Ninjutsu'):
  spx();o()
- for i,l in enumerate(N):o(f"  {C['b'] if i<8 else C['o']}{l}{C['X']}")
- o(f"\n  {C['d']}                v1.0.2  ·  {s}{C['X']}\n")
+ for l in W_:o(f"  {C['b']}{l}{C['X']}")
+ o(f"\n                {C['d']}v1.0.3  ·  {s}{C['X']}\n")
 # ── SOURCE ──
 def gs(force=0):
  if not force and hs(R):return S
@@ -240,7 +231,7 @@ def bd(force=0):
  if not force and w and runs(w):
   inf(f'using wrapper: {w}');return w
  if os.path.exists(p)and not force:
-  t=[os.path.getmtime(os.path.join(src,f))for f in('vulpin.c','vm.c')if os.path.exists(os.path.join(src,f))]
+  t=[os.path.getmtime(os.path.join(src,f))for f in('vulpin.c','vm.c','repl.c')if os.path.exists(os.path.join(src,f))]
   if t and os.path.getmtime(p)>=max(t):
    chx(p);inf('binary up to date')
    if w:chx(w);return w
@@ -254,7 +245,7 @@ def bd(force=0):
    chx(p)
    if w:chx(w);return w
    return p
- files=[os.path.join(src,f)for f in('vulpin.c','vm.c')]
+ files=[os.path.join(src,f)for f in('vulpin.c','vm.c','repl.c')]
  mi=[f for f in files if not os.path.exists(f)]
  if mi:raise FileNotFoundError(f'missing: {mi}')
  if not c:
@@ -449,7 +440,7 @@ def fh():
  o(f"  {C['o']}{C['Z']}pipeline{C['X']}")
  o(f"    {C['d']}1. clone/update {RP}{C['X']}")
  o(f"    {C['d']}2. find gcc, else download tcc{C['X']}")
- o(f"    {C['d']}3. make/chmod src/vulpin.c + vm.c → src/vulpin{C['X']}")
+ o(f"    {C['d']}3. make/chmod src/vulpin.c + vm.c + repl.c → src/vulpin{C['X']}")
  o(f"    {C['d']}4. chmod +x bin/{wr()}{C['X']}")
  o(f"    {C['d']}5. install launcher ~/.local/bin/vulpin{C['X']}")
  o(f"    {C['d']}6. add ~/.local/bin to PATH{C['X']}")
@@ -506,5 +497,5 @@ if len(sys.argv)<2 or(sys.argv[1]not in _K and not sys.argv[1].startswith('-')):
  try:mm()
  except KeyboardInterrupt:o();wn('interrupted');sys.exit(130)
  sys.exit(0)
-setup(name='vulpin',version='1.0.2',description='Vulpin programming language',
+setup(name='vulpin',version='1.0.3',description='Vulpin programming language',
       packages=[],scripts=[],cmdclass={'console':CI,'update':UP,'fix':FX,'help':HP})
