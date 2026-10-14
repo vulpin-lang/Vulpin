@@ -302,6 +302,7 @@ for(int i=0;i<in->len;i++){vput2((VM2*)v->v,name,vc(in->a[i]));V z;if(ee(v,n->c[
 if(had)vput2((VM2*)v->v,name,saved);else vdel2((VM2*)v->v,name);if(!had){}*out=(V){.t=VAL_LIST,.o=r};vfree(&src);return 0;
 }
 case ND_DICT:{DCT*d=dctnew();for(int i=0;i+1<n->n;i+=2){V key,val;if(ee(v,n->c[i],&key)){vmfree2(d->m);free(d);return 1;}if(ee(v,n->c[i+1],&val)){vfree(&key);vmfree2(d->m);free(d);return 1;}char*ks=vr2(&key);vput2(d->m,ks,val);free(ks);vfree(&key);}*out=(V){.t=VAL_DICT,.s=NULL,.o=d,.i=0};return 0;}
+case ND_SET:{DCT*d=dctnew();for(int i=0;i<n->n;i++){V el;if(ee(v,n->c[i],&el)){vmfree2(d->m);free(d);return 1;}char*ks=vr2(&el);vput2(d->m,ks,vn());free(ks);vfree(&el);}*out=(V){.t=VAL_SET,.s=NULL,.o=d,.i=0};return 0;}
 case ND_DICTCOMP:{
 if(n->n<4)return 1;V src;if(ee(v,n->c[3],&src))return 1;if(src.t!=VAL_LIST){VERR("Error: dict comprehension requires a List\n");vfree(&src);return 1;}
 DCT*d=dctnew();const char*name=n->c[2]->v;V*old=vget2((VM2*)v->v,name);V saved=old?vc(*old):vn();int had=old!=NULL;LST*in=src.o;
