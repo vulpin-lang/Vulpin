@@ -109,6 +109,7 @@ lx++;
 perr("unterminated string");
 (void)s;
 }
+static void unesc(char*s){if(!s)return;char*w=s;for(char*r=s;*r;r++){if(*r!='\\'||!r[1]){*w++=*r;continue;}char c=r[1];char o=c=='n'?'\n':c=='t'?'\t':c=='r'?'\r':(c=='\\'||c=='"'||c=='\''||c=='`')?c:0;if(o){*w++=o;r++;}else*w++=*r;}*w=0;}
 static void adv(void){
 freetk();
 while(1){
@@ -131,14 +132,14 @@ while(isdigit((unsigned char)*lx))lx++;
 tk=mk2(TOK_NUM,s,lx);if(dots>1){tk.t=TOK_UNK;perr("invalid numeric literal");}return;
 }
 if(c=='\''||c=='"'||c=='`'){
-const char*bs,*be;lx=s;scanString(c,&bs,&be);tk=mk2(TOK_STR,bs,be);return;
+const char*bs,*be;lx=s;scanString(c,&bs,&be);tk=mk2(TOK_STR,bs,be);unesc(tk.v);return;
 }
 if((c=='r'||c=='R')&&(*lx=='\''||*lx=='"'||*lx=='`')){
 const char q=*lx;const char*bs,*be;scanString(q,&bs,&be);tk=mk2(TOK_STR,bs,be);return;
 }
 if(c=='$'){
 if(*lx=='\''||*lx=='"'||*lx=='`'){
-const char q=*lx;const char*bs,*be;scanString(q,&bs,&be);tk=mk2(TOK_FMTSTR,bs,be);return;
+const char q=*lx;const char*bs,*be;scanString(q,&bs,&be);tk=mk2(TOK_FMTSTR,bs,be);unesc(tk.v);return;
 }
 tk=mk2(TOK_DEREF,s,lx);return;
 }
@@ -231,8 +232,8 @@ if(tk.t==TOK_BINOP&&!strcmp(tk.v,"|")&&barStartsComp()){
 adv();if(tk.t!=TOK_IDENT){perr("list comprehension expects a loop variable");return n;}
 Node*var=MN(ND_IDENT,strdup(tk.v));adv();
 if(tk.t!=TOK_BINOP||strcmp(tk.v,"<-")){perr("list comprehension expects '<-'");return n;}
-adv();Node*iter=PE();if(tk.t!=TOK_RBRACK)perr("expected ']'");else adv();
-Node*c=MN(ND_LISTCOMP,strdup(""));ac(c,first);ac(c,var);ac(c,iter);free(n->c);free(n->v);free(n);return c;
+adv();Node*iter=PE();Node*cond=NULL;if(tk.t==TOK_COMMA){adv();cond=PE();}if(tk.t!=TOK_RBRACK)perr("expected ']'");else adv();
+Node*c=MN(ND_LISTCOMP,strdup(""));ac(c,first);ac(c,var);ac(c,iter);if(cond)ac(c,cond);free(n->c);free(n->v);free(n);return c;
 }
 ac(n,first);while(tk.t==TOK_COMMA){adv();ac(n,PE());}
 if(tk.t!=TOK_RBRACK)perr("expected ']'");else adv();return n;
@@ -246,8 +247,8 @@ if(tk.t==TOK_BINOP&&!strcmp(tk.v,"|")&&barStartsComp()){
 adv();if(tk.t!=TOK_IDENT){perr("dict comprehension expects a loop variable");return val;}
 Node*var=MN(ND_IDENT,strdup(tk.v));adv();
 if(tk.t!=TOK_BINOP||strcmp(tk.v,"<-")){perr("dict comprehension expects '<-'");return val;}
-adv();Node*iter=PE();if(tk.t!=TOK_RBRACE)perr("expected '}'");else adv();
-Node*c=MN(ND_DICTCOMP,strdup(""));ac(c,first);ac(c,val);ac(c,var);ac(c,iter);return c;
+adv();Node*iter=PE();Node*cond=NULL;if(tk.t==TOK_COMMA){adv();cond=PE();}if(tk.t!=TOK_RBRACE)perr("expected '}'");else adv();
+Node*c=MN(ND_DICTCOMP,strdup(""));ac(c,first);ac(c,val);ac(c,var);ac(c,iter);if(cond)ac(c,cond);return c;
 }
 Node*n=MN(ND_DICT,strdup(""));ac(n,first);ac(n,val);while(tk.t==TOK_COMMA){adv();Node*k=PE();if(tk.t!=TOK_COLON)perr("expected ':' in dict literal");else adv();ac(n,k);ac(n,PE());}if(tk.t!=TOK_RBRACE)perr("expected '}'");else adv();return n;
 }
@@ -256,10 +257,12 @@ Node*n=MN(ND_SET,strdup(""));ac(n,first);while(tk.t==TOK_COMMA){adv();ac(n,PE())
 default:{char msg[320];snprintf(msg,sizeof(msg),"unexpected token '%s'",tk.v?tk.v:"");perr(msg);adv();return MN(ND_NUM,strdup("0"));}
 }
 }
+static int spaceSplitsArgs=0;
 static Node*PT(void){
 Node*n=PP();
 for(;;){
 if(tk.t==TOK_LBRACK){
+if(spaceSplitsArgs&&tokStart>parser_source&&(tokStart[-1]==' '||tokStart[-1]=='\t'))break;
 adv();Node*start=NULL,*end=NULL;int hs=0,he=0;
 if(tk.t!=TOK_COLON&&tk.t!=TOK_RBRACK){start=PE();hs=1;}
 if(tk.t==TOK_COLON){
@@ -287,6 +290,9 @@ static int isCmpOpToken(void){if(tk.t==TOK_EQ)return 1;if(tk.t!=TOK_BINOP)return
 static Node*PC(void){Node*n=PA();while(isCmpOpToken()||(tk.t==TOK_IDENT&&isWordOp(tk.v))){char*op=strdup(tk.v);adv();Node*r=PA();Node*b=MN(ND_BINOP,op);ac(b,n);ac(b,r);n=b;}return n;}
 static Node*PAND(void){Node*n=PC();while(tk.t==TOK_BINOP&&(!strcmp(tk.v,"&&")||!strcmp(tk.v,"&"))){char*op=strdup(tk.v);adv();Node*r=PC();Node*b=MN(ND_BINOP,op);ac(b,n);ac(b,r);n=b;}return n;}
 static Node*PE(void){Node*n=PAND();while(tk.t==TOK_BINOP&&(!strcmp(tk.v,"||")||(!strcmp(tk.v,"|")&&!barStartsComp()))){char*op=strdup(tk.v);adv();Node*r=PAND();Node*b=MN(ND_BINOP,op);ac(b,n);ac(b,r);n=b;}if(tk.t==TOK_QUESTION){adv();Node*y=PE();if(tk.t!=TOK_COLON)perr("ternary operator expects ':'");else adv();Node*z=PE();Node*q=MN(ND_TERNARY,strdup(""));ac(q,n);ac(q,y);ac(q,z);n=q;}return n;}
+static const char*afterParsedStatement(void);
+/* After an if/elif condition: a statement may follow on the same line as the block's first body line. */
+static const char*afterCondition(void){if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI&&tk.t!=TOK_COLON)return tokStart;return afterParsedStatement();}
 static const char*afterParsedStatement(void){
 if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI&&tk.t!=TOK_COLON){
 char msg[320];snprintf(msg,sizeof(msg),"unexpected token '%s'",tk.v?tk.v:"");perr(msg);
@@ -305,20 +311,20 @@ while(*p){
 if(*p=='\\'&&p[1]){p+=2;continue;}
 if(triple){
 if(p[0]==q&&p[1]==q&&p[2]==q){
-Node*n=MN(ND_STR,strndup(s,(size_t)(p-s)));
+Node*n=MN(ND_STR,strndup(s,(size_t)(p-s)));unesc(n->v);
 p+=3;
 if(next){*next=p;}
 return n;
 }
 }else if(*p==q){
-Node*n=MN(ND_STR,strndup(s,(size_t)(p-s)));
+Node*n=MN(ND_STR,strndup(s,(size_t)(p-s)));unesc(n->v);
 p++;
 if(next){*next=p;}
 return n;
 }
 p++;
 }
-Node*n=MN(ND_STR,strndup(s,(size_t)(p-s)));
+Node*n=MN(ND_STR,strndup(s,(size_t)(p-s)));unesc(n->v);
 perr_at(s?s:p,"unterminated string");
 if(next){*next=p;}
 return n;
@@ -377,10 +383,11 @@ const char*raw=line;while(*raw==' '||*raw=='\t'||*raw=='\n'||*raw=='\r')raw++;if
 char cmd=*raw;const char*rest=raw+1;while(*rest==' '||*rest=='\t')rest++;
 if(cmd=='#'){while(*rest&&*rest!='\n'&&*rest!='\r')rest++;if(next)*next=rest;return MN(ND_IDENT,strdup(""));}
 if(cmd==';'){if(next)*next=raw+1;return MN(ND_ENDIF,strdup(""));}
-if(cmd==':'&&*rest=='?'){initLx(rest+1);Node*n=MN(ND_ELIF,strdup(""));Node*e=PE();if(e)ac(n,e);if(next)*next=afterParsedStatement();return n;}
-if(cmd=='?'){const char*cn=NULL;Node*n=parseCompactIf(rest,&cn);if(n){if(next)*next=cn;return n;}initLx(rest);n=MN(ND_IF,strdup(""));Node*e=PE();if(e)ac(n,e);if(next)*next=afterParsedStatement();return n;}
+if(cmd==':'&&*rest=='?'){initLx(rest+1);Node*n=MN(ND_ELIF,strdup(""));Node*e=PE();if(e)ac(n,e);if(next)*next=afterCondition();return n;}
+if(cmd=='?'){const char*cn=NULL;Node*n=parseCompactIf(rest,&cn);if(n){if(next)*next=cn;return n;}initLx(rest);n=MN(ND_IF,strdup(""));Node*e=PE();if(e)ac(n,e);if(tk.t==TOK_IDENT&&!strcmp(tk.v,"J")){adv();if(tk.t==TOK_IDENT){free(n->v);n->v=strdup(tk.v);adv();}else perr("J: expected a label name");if(next)*next=afterParsedStatement();return n;}if(next)*next=afterCondition();return n;}
 if(cmd=='!'){initLx(rest);Node*n=MN(ND_CEXEC,strdup(""));Node*e=rawCommandNode(rest,next);if(e)ac(n,e);return n;}
 if(cmd=='o'||islower((unsigned char)cmd)||cmd=='_'||cmd=='\''||cmd=='"'||cmd=='`'||cmd=='$'||isdigit((unsigned char)cmd)||cmd=='('||cmd=='['||cmd=='{')initLx(raw);else initLx(rest);
+if(cmd=='Q'&&(isdigit((unsigned char)*rest)||islower((unsigned char)*rest)||*rest=='_'||*rest=='('||*rest=='-'||*rest=='$')){Node*n=MN(ND_QUIT,strdup(""));Node*e=PE();if(e)ac(n,e);if(next)*next=afterParsedStatement();return n;}
 if(cmd==':'||cmd=='&'||cmd=='~'||cmd=='Q'||cmd=='N'||cmd=='Y'){
 if(next)*next=raw+1;switch(cmd){case':':return MN(ND_ELSE,strdup(""));case'&':return MN(ND_WEND,strdup(""));case'~':return MN(ND_ENDFN,strdup(""));case'Q':return MN(ND_QUIT,strdup(""));case'N':return MN(ND_DEF,strdup(""));default:return MN(ND_ENDTRY,strdup(""));}
 }
@@ -455,7 +462,7 @@ case'J':{Node*n=MN(ND_JUMP,strdup(""));if(tk.t==TOK_IDENT){free(n->v);n->v=strdu
 case'W':{if(tk.t==TOK_IDENT&&!strcmp(tk.v,"file")){adv();Node*n=MN(ND_WRITE,strdup(""));if(tk.t!=TOK_STR)perr("W file: expected path string");else{ac(n,MN(ND_STR,strdup(tk.v)));adv();}if(tk.t!=TOK_STR)perr("W file: expected content string");else{ac(n,MN(ND_STR,strdup(tk.v)));adv();}if(next)*next=afterParsedStatement();return n;}Node*n=MN(ND_SWITCH,strdup(""));if(tk.t==TOK_EOF||tk.t==TOK_EOL||tk.t==TOK_SEMI)perr("W: expected switch expression");else{Node*e=PE();if(e)ac(n,e);}if(next)*next=afterParsedStatement();return n;}
 case'V':{Node*n=MN(ND_CASE,strdup(""));Node*e=PE();if(e)ac(n,e);if(next)*next=afterParsedStatement();return n;}
 case'C':{Node*n=MN(ND_CATCH,strdup(""));if(tk.t==TOK_IDENT||tk.t==TOK_STR){free(n->v);n->v=strdup(tk.v);adv();}if(next)*next=afterParsedStatement();return n;}
-case'Z':{if(tk.t==TOK_EOF||tk.t==TOK_EOL||tk.t==TOK_SEMI){if(next)*next=afterParsedStatement();return MN(ND_ENDSW,strdup(""));}Node*n=MN(ND_ZIP,strdup(""));Node*e=PE();if(e)ac(n,e);if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI&&tk.t!=TOK_COLON){e=PE();if(e)ac(n,e);}if(next)*next=afterParsedStatement();return n;}
+case'Z':{if(tk.t==TOK_EOF||tk.t==TOK_EOL||tk.t==TOK_SEMI){if(next)*next=afterParsedStatement();return MN(ND_ENDSW,strdup(""));}Node*n=MN(ND_ZIP,strdup(""));spaceSplitsArgs=1;Node*e=PE();spaceSplitsArgs=0;if(e)ac(n,e);if(tk.t==TOK_COMMA)adv();if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI&&tk.t!=TOK_COLON){e=PE();if(e)ac(n,e);}if(next)*next=afterParsedStatement();return n;}
 case'I':{Node*n=MN(ND_INSPECT,strdup(""));if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI){Node*e=PE();if(e)ac(n,e);}if(next)*next=afterParsedStatement();return n;}
 case'O':{Node*n=MN(ND_FOR,strdup(""));if(tk.t!=TOK_IDENT){perr("O: expected loop variable");}else{ac(n,MN(ND_IDENT,strdup(tk.v)));adv();for(int i=0;i<2;i++){if(tk.t==TOK_EOF||tk.t==TOK_EOL||tk.t==TOK_SEMI||tk.t==TOK_COLON){perr("O: expected range expression");break;}ac(n,PT());}if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI&&tk.t!=TOK_COLON)ac(n,PT());}if(next)*next=afterParsedStatement();return n;}
 case'U':{Node*n=MN(ND_IMPORT,strdup(""));if(tk.t==TOK_STR||tk.t==TOK_IDENT){free(n->v);n->v=strdup(tk.v);adv();}else perr("U: expected module name");if(next)*next=afterParsedStatement();return n;}
@@ -467,7 +474,7 @@ if(tk.t==TOK_EQ||(tk.t==TOK_BINOP&&(!strcmp(tk.v,"+=")||!strcmp(tk.v,"-=")||!str
 if(tk.t==TOK_EQ){Node*n=MN(ND_ASSIGN,strdup(""));ac(n,MN(ND_IDENT,strdup(namebuf)));adv();if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI){Node*e=PE();if(e)ac(n,e);}if(next)*next=afterParsedStatement();return n;}
 char op[2]={tk.v[0],0};Node*n=MN(ND_ARITH,strdup(op));ac(n,MN(ND_IDENT,strdup(namebuf)));adv();if(tk.t!=TOK_EOF&&tk.t!=TOK_EOL&&tk.t!=TOK_SEMI){Node*e=PE();if(e)ac(n,e);}if(next)*next=afterParsedStatement();return n;
 }
-if(tk.t==TOK_LBRACK){lx=save;tokStart=save;adv();Node*target=PT();if(tk.t==TOK_EQ&&target->t==ND_INDEX){adv();Node*val=PE();Node*n=MN(ND_IDXASSIGN,strdup(""));ac(n,target->c[0]);ac(n,target->c[1]);ac(n,val);free(target->c);free(target->v);free(target);if(next)*next=afterParsedStatement();return n;}if(next)*next=afterParsedStatement();return target;}
+if(tk.t==TOK_LBRACK){lx=save;tokStart=save;adv();Node*target=PT();int cop=tk.t==TOK_BINOP&&tk.v[0]&&strchr("+-*/%",tk.v[0])&&tk.v[1]=='='&&!tk.v[2];if((tk.t==TOK_EQ||cop)&&target->t==ND_INDEX){char opb[2]={cop?tk.v[0]:0,0};adv();Node*val=PE();Node*n=MN(ND_IDXASSIGN,strdup(opb));ac(n,target->c[0]);ac(n,target->c[1]);ac(n,val);free(target->c);free(target->v);free(target);if(next)*next=afterParsedStatement();return n;}if(next)*next=afterParsedStatement();return target;}
 lx=save;tokStart=save;adv();
 }
 Node*n=PE();if(next)*next=afterParsedStatement();return n;
@@ -519,8 +526,9 @@ if(ifn==0){free(ifs);ifs=NULL;ifcap=0;}
 }else if(ifn>0){
 ft(n);
 }else{
+const char*ls=q;while(ls>parser_source&&(ls[-1]==' '||ls[-1]=='\t'))ls--;
 ft(n);
-perr("ENDIF without IF");
+if(ls==parser_source||ls[-1]=='\n'||ls[-1]=='\r')perr("ENDIF without IF");
 }
 q=next;
 continue;

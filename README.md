@@ -76,6 +76,9 @@ G 5 + 3            # Prints 8
 Gname            # Prints value of variable name
 ```
 
+> [!NOTE]
+> Dividing two integers gives an integer, truncated toward zero: `G 7/2` prints `3` and `G -7/2` prints `-3`. Use a float for a fractional result (`G 7.0/2` prints `3.5`), and `math.floor()` to round a float down.
+
 ---
 
 ### <img src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" width="24" alt="output"> Output
@@ -370,7 +373,6 @@ tries=tries+1
     Q
 :? num<secret G"Higher"
 : G"Lower"
-;
 ;
 J guess
 ```
