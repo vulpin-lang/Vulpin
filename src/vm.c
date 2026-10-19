@@ -226,7 +226,7 @@ if(sv==0.0)return false;
 return sv>0.0?cv<ev:cv>ev;
 }
 static bool viz(const V*v){if(v->t==VAL_INT)return v->i==0;if(v->t==VAL_FLOAT)return v->f==0.0;return false;}
-static int ee(VM*,Node*,V*);static int es(VM*,Node*);static int cf(VM*,Node*,V*);static int cf_named(VM*,Node*,V*);static int bc(VM*,const char*,const char*,V*,int,V*);static int cuf(VM*,const char*,V*,int,V*);
+static int ee(VM*,Node*,V*);static int es(VM*,Node*);static int cf(VM*,Node*,V*);static int cf_named(VM*,Node*,V*);static int bc(VM*,const char*,const char*,V*,int,V*);static int cuf(VM*,const char*,V*,int,V*);static int cmod(VM*,const char*,V*,int,V*);
 static void vdel2(VM2*m,const char*k){int idx=hf(k)%m->cap;while(m->e[idx].st){if(m->e[idx].st==2&&!strcmp(m->e[idx].k,k)){free(m->e[idx].k);vfree(&m->e[idx].v);m->e[idx].st=1;m->tombs++;m->len--;return;}idx=(idx+1)%m->cap;}}
 static char*fmtstr(VM*v,const char*s,const V*pa,int pn){size_t cap=64,len=0;int pi=0;char*r=malloc(cap);if(!r)return NULL;r[0]=0;for(size_t i=0;s&&s[i];i++){if(pa&&s[i]=='{'&&s[i+1]=='}'){if(pi>=pn){VERR("Error: fmt: not enough arguments for format string\n");free(r);return NULL;}char*q=vr2(&pa[pi++]);size_t ql=strlen(q);while(len+ql+1>=cap){cap*=2;r=realloc(r,cap);}memcpy(r+len,q,ql);len+=ql;r[len]=0;free(q);i++;continue;}if(s[i]=='{'&&s[i+1]=='{'){if(len+1>=cap){cap*=2;r=realloc(r,cap);}r[len++]='{';r[len]=0;i++;continue;}if(s[i]=='}'&&s[i+1]=='}'){if(len+1>=cap){cap*=2;r=realloc(r,cap);}r[len++]='}';r[len]=0;i++;continue;}if(s[i]=='{'){size_t j=i+1;while(s[j]&&s[j]!='}')j++;if(s[j]=='}'&&j>i+1){char name[256];size_t n=j-i-1;if(n>=sizeof(name))n=sizeof(name)-1;memcpy(name,s+i+1,n);name[n]=0;if(name[0]=='$')memmove(name,name+1,n);V*x=vget2((VM2*)v->v,name);if(x){char*q=vr2(x);size_t ql=strlen(q);while(len+ql+1>=cap){cap*=2;r=realloc(r,cap);}memcpy(r+len,q,ql);len+=ql;r[len]=0;free(q);i=j;continue;}}}if(len+2>=cap){cap*=2;r=realloc(r,cap);}r[len++]=s[i];r[len]=0;}return r;}
 static int sliceInt(int x,int len,int isStart){if(x<0)x+=len;if(isStart){if(x<0)x=0;if(x>len)x=len;}else{if(x<0)x=0;if(x>len)x=len;}return x;}
@@ -341,6 +341,7 @@ if(!strcmp(m,"system")){if(argc!=1||args[0].t!=VAL_STR){VERR("os.system: expecte
 if(!strcmp(m,"getcwd")){if(argc){VERR("os.getcwd: takes no arguments\n");return 1;}char b[4096];if(!getcwd(b,sizeof(b))){VERR("os.getcwd: %s\n",strerror(errno));return 1;}*out=vs(b);return 0;}
 VERR("os.%s: unknown method\n",m);return 1;
 }
+{MM*mm=(MM*)v->m;ME*me=mm?mget2(mm,mod):NULL;if(me&&me->v){if(me->v->fu&&fget2((FM*)me->v->fu,m))return cmod(me->v,m,args,argc,out);V*x=argc?NULL:vget2((VM2*)me->v->v,m);if(x){*out=vc(*x);return 0;}VERR("Error: module '%s' has no function '%s'\n",mod,m);return 1;}}
 VERR("N/A module '%s'\n",mod);return 1;
 }
 #define MAX_DEPTH 1000
@@ -350,8 +351,10 @@ static int stack_low(void){char probe;if(!stack_base){stack_base=&probe;stack_bu
 struct rlimit rl;if(!getrlimit(RLIMIT_STACK,&rl))stack_budget=rl.rlim_cur==RLIM_INFINITY?(size_t)64*1024*1024:(size_t)rl.rlim_cur/2;
 #endif
 }uintptr_t b0=(uintptr_t)stack_base,b1=(uintptr_t)&probe;size_t used=(size_t)(b0>b1?b0-b1:b1-b0);return used>stack_budget;}
+static int cmod(VM*mv,const char*fn,V*args,int argc,V*out){VM*pe=active_error_vm;active_error_vm=mv;int rc=cuf(mv,fn,args,argc,out);active_error_vm=pe;return rc;}
 static int cuf(VM*t,const char*fn,V*args,int argc,V*out){
 FI*fi=fget2((FM*)t->fu,fn);
+if(!fi){MM*mm=(MM*)t->m;for(int i=0;mm&&i<mm->len;i++){VM*mv=mm->e[i].v;if(mv&&mv->fu&&fget2((FM*)mv->fu,fn))return cmod(mv,fn,args,argc,out);}}
 if(!fi){VERR("Error: function '%s' is not defined\n",fn);*out=vn();return 1;}
 if(argc<fi->required||argc>fi->pc){VERR("Error: %s() expects %d required argument%s and at most %d total; got %d\n",fn,fi->required==1?1:fi->required,fi->required==1?"":"s",fi->pc,argc);*out=vn();return 1;}
 if(call_depth>=MAX_DEPTH||stack_low()){VERR("Error: maximum recursion depth exceeded in %s()\n",fn);*out=vn();return 1;}call_depth++;
@@ -362,7 +365,7 @@ if(!pn)continue;
 int optional=pn[0]=='!';const char*name=optional?pn+1:pn;
 if(i<argc)vput2(lv,name,vc(args[i]));
 else if(optional)vput2(lv,name,vn());
-}void*ov=t->v;int sip=t->ip;t->v=lv;t->ip=fi->s+1;vfree(&t->rv);t->rv=vn();int rc=0;while(t->ip<t->nc&&t->ip<=fi->e){if(t->st[t->ip]!=-1){t->ip=t->st[t->ip];continue;}Node*nd=t->p->c[t->ip];t->ip++;Node*prev_error_node=active_error_node;active_error_node=nd;rc=es(t,nd);active_error_node=prev_error_node;if(rc==2){rc=0;break;}if(rc==1){if(t->tl>0){int tr=t->ts[t->tl-1];int c=t->mel[tr];if(c!=-1&&tr>fi->s&&tr<fi->e){t->tl--;Node*cn=t->p->c[c];if(cn->v[0])vput2((VM2*)t->v,cn->v,vs(last_err[0]?last_err:"error"));t->ip=c+1;rc=0;continue;}}break;}}t->v=ov;t->ip=sip;call_depth--;if(rc==1){vfree(&t->rv);t->rv=vn();vmfree2(lv);*out=vn();return 1;}V ret=vc(t->rv);vfree(&t->rv);t->rv=vn();vmfree2(lv);*out=ret;return 0;}
+}void*ov=t->v;int sip=t->ip,sil=t->il,sll=t->ll,slml=t->lml,seml=t->eml,stl=t->tl,ssl=t->sl;t->v=lv;t->ip=fi->s+1;vfree(&t->rv);t->rv=vn();int rc=0;while(t->ip<t->nc&&t->ip<=fi->e){if(t->st[t->ip]!=-1){t->ip=t->st[t->ip];continue;}Node*nd=t->p->c[t->ip];t->ip++;Node*prev_error_node=active_error_node;active_error_node=nd;rc=es(t,nd);active_error_node=prev_error_node;if(rc==2){rc=0;break;}if(rc==1){if(t->tl>0){int tr=t->ts[t->tl-1];int c=t->mel[tr];if(c!=-1&&tr>fi->s&&tr<fi->e){t->tl--;Node*cn=t->p->c[c];if(cn->v[0])vput2((VM2*)t->v,cn->v,vs(last_err[0]?last_err:"error"));t->ip=c+1;rc=0;continue;}}break;}}t->v=ov;t->ip=sip;t->il=sil;t->ll=sll;t->tl=stl;while(t->lml>slml){LM*lm=&t->lm[--t->lml];free(lm->v);vfree(&lm->e);vfree(&lm->s);}while(t->eml>seml){EM*em=&t->em[--t->eml];free(em->iv);free(em->vv);vfree(&em->src);}while(t->sl>ssl){vfree(&t->ss[t->sl-1].v);t->sl--;}call_depth--;if(rc==1){vfree(&t->rv);t->rv=vn();vmfree2(lv);*out=vn();return 1;}V ret=vc(t->rv);vfree(&t->rv);t->rv=vn();vmfree2(lv);*out=ret;return 0;}
 static int cf(VM*v,Node*call,V*out){
 if(!call||!call->v||call->v[0]!='$')return cf_named(v,call,out);
 const char*name=call->v+1;V*x=vget2((VM2*)v->v,name);
