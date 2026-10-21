@@ -1,0 +1,109 @@
+# CI: compile a single `vulpin` executable per platform and attach it to
+# tagged releases (V*, matching the existing tag scheme: V1.0.3, V0.9, ...).
+# A manual run via workflow_dispatch only builds artifacts, no release step.
+name: Build
+
+on:
+  push:
+    tags: ['V*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux-x86_64
+          - os: macos-latest
+            name: macos-universal # arm64 + x86_64 merged with lipo
+          - os: windows-latest
+            name: windows-x86_64
+    steps:
+      - uses: actions/checkout@v4
+
+      # windows-latest has no C compiler on PATH by default
+      - name: Set up MinGW-w64 (Windows)
+        if: runner.os == 'Windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: false
+          install: mingw-w64-x86_64-gcc
+
+      # macOS lives on both CPU archs; clang can cross-compile, so we build
+      # each arch and lipo them into one universal binary that runs everywhere
+      - name: Build (macOS universal)
+        if: runner.os == 'macOS'
+        run: |
+          gcc -O2 -Wall -o vulpin-arm64 src/vulpin.c src/vm.c src/repl.c -lm
+          gcc -O2 -Wall -arch x86_64 -o vulpin-x64 src/vulpin.c src/vm.c src/repl.c -lm
+          lipo -create -output vulpin vulpin-arm64 vulpin-x64
+
+      - name: Build (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          gcc -O2 -Wall -o vulpin src/vulpin.c src/vm.c src/repl.c -lm
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        shell: msys2 {0}
+        run: |
+          gcc -O2 -Wall -o vulpin.exe src/vulpin.c src/vm.c src/repl.c -lm
+
+      # smoke test: the binary must run and interpret a program
+      - name: Smoke test (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          ./vulpin version
+          printf 'G "ci OK"\n' > smoke.vul
+          out="$(./vulpin smoke.vul)"
+          [ "$out" = "ci OK" ]
+
+      - name: Smoke test (Windows)
+        if: runner.os == 'Windows'
+        shell: msys2 {0}
+        run: |
+          ./vulpin.exe version
+          printf 'G "ci OK"\n' > smoke.vul
+          out="$(./vulpin.exe smoke.vul)"
+          [ "$out" = "ci OK" ]
+
+      # final names: vulpin-<platform>[.exe], staged in out/
+      - name: Stage artifact
+        shell: bash
+        run: |
+          mkdir -p out
+          if [ -f vulpin.exe ]; then
+            cp vulpin.exe "out/vulpin-${{ matrix.name }}.exe"
+          else
+            cp vulpin "out/vulpin-${{ matrix.name }}"
+            chmod +x "out/vulpin-${{ matrix.name }}"
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vulpin-${{ matrix.name }}
+          path: out/*
+          if-no-files-found: error
+
+  # attaches the built binaries to the release that triggered the run
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
