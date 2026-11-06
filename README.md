@@ -21,8 +21,7 @@
 
 <hr>
 
-
-# <img src="https://github.com/user-attachments/assets/331cfe3c-9bf5-47f8-bc6d-6ae9208bc7c8" width="35" alt="installation"> Installation
+# <img src="https://github.com/user-attachments/assets/0028ea3a-27d4-4e5f-9f16-bcd33067c788" width="25" alt="installation"> Installation
 - <p>Go to Vulpin Website</p>
 <link href="https://vulpin.fluxCast.dev"/>
 
@@ -40,7 +39,7 @@ python setup.py
 
 If you got Permission Denied, You didn't run them as Root.
 
-## <img src="https://github.com/user-attachments/assets/61e4dcb7-c53b-4a2a-9986-11a9f6eb566d" width="28" alt="Quick Start"> Quick Start
+## <img src="https://github.com/user-attachments/assets/19e80f7d-ace6-4c9e-b377-e701a806f5ee" width="28" alt="Quick Start"> Quick Start
 
 1. **Create a `.vul` file**. Like `hello.vul`:
    ```basic
@@ -58,7 +57,7 @@ If you got Permission Denied, You didn't run them as Root.
    ```
 
 > [!TIP]
-> You can remove spaces in your app! dont worry about it! Because if you do that you can build your smallest program like this:
+> You can remove spaces in your app! don't worry about it! Because if you do that you can build your smallest program like this:
 >
 > ```G"Hello World"```
 
@@ -66,7 +65,7 @@ If you got Permission Denied, You didn't run them as Root.
 
 
 
-## <img src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" width="28" alt="basic syntax"> Basic Syntax
+## <img src="https://github.com/user-attachments/assets/2acde320-8df3-4662-9dc8-2831c7a147f3" width="28" alt="basic syntax"> Basic Syntax
 
 ```basic
 name="Armin"
@@ -81,7 +80,7 @@ Gname            # Prints value of variable name
 
 ---
 
-### <img src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" width="24" alt="output"> Output
+### <img src="https://github.com/user-attachments/assets/831a82a9-063b-4763-838a-984a5aa48183" width="24" alt="output"> Output
 
 ```text
 Hello
@@ -91,7 +90,7 @@ Armin
 
 ---
 
-### <img src="https://github.com/user-attachments/assets/7484cff7-978c-4369-969e-18ec06510231" width="24" alt="input"> Input
+### <img src="https://github.com/user-attachments/assets/9f795b05-7551-4df0-9448-fbe44acf9461" width="24" alt="input"> Input
 
 ```basic
 K user "Your name: "
@@ -120,7 +119,7 @@ Kinput"K can write like this! :)"
 
 ---
 
-### <img src="https://github.com/user-attachments/assets/cad50866-c2d4-477f-9a03-e0e2c7648269" width="24" alt="vars"> Variables
+### <img src="https://github.com/user-attachments/assets/c98fffff-ba0f-45a7-a5d0-9217494d42f3" width="24" alt="vars"> Variables
 
 ```basic
 x=10               # Direct assignment
@@ -143,7 +142,7 @@ D"y"               # Delete variable
 
 ---
 
-### <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="24" alt="lists dicts sets"> Lists, Dicts & Sets
+### <img src="https://github.com/user-attachments/assets/d7eec980-4168-4866-8963-052b624f5bfe" width="17" alt="lists dicts sets"> Lists, Dicts & Sets
 
 ```basic
 l=[1, 2, 3]
@@ -187,7 +186,7 @@ empty={}         # empty braces are always an empty Dict
 
 ---
 
-### <img src="https://github.com/user-attachments/assets/4ffc9f00-dfca-48ed-99f5-c17fe37a2fde" width="24" alt="delay"> Delay
+### <img src="https://github.com/user-attachments/assets/964fcfdf-9855-48ef-be8e-534e7115cd84" width="24" alt="delay"> Delay
 
 ```basic
 D1          # wait 1 second
@@ -198,7 +197,7 @@ D delay    # wait the value of variable
 ---
 
 
-### <img src="https://github.com/user-attachments/assets/f4b14c7a-ed63-4bdd-a769-daa621300529" width="24" alt="modules"> Imports
+### <img src="https://github.com/user-attachments/assets/56767662-3b77-45bf-aa31-681462533dec" width="24" alt="modules"> Imports
 
 You can Import Vulpin Modules with using ```U```.
 
@@ -213,10 +212,9 @@ G math.sqrt(16)
 `os.system()` and `os()` and `o()` are the same!
 and you can write like: `o"echo hi"!!` with no `()`!!
 
-## <img src="https://github.com/user-attachments/assets/9fd18d57-4d07-4897-9f7b-5015e32ff721" width="28" alt="control flow"> Control Flow
+## <img src="https://github.com/user-attachments/assets/2ce5dc5e-fe63-41c4-8b6d-23f52d1ace43" width="28" alt="control flow"> Control Flow
 
-
-### <img src="https://github.com/user-attachments/assets/2ec067a9-d217-4e28-8cec-f0319e93c1f4" width="24" alt="if else"> If / Else
+### <img src="https://github.com/user-attachments/assets/d3ba96a7-bb3a-46b7-8509-88829c748df6" width="24" alt="if else"> If / Else
 
 ```basic
 score=85
@@ -234,7 +232,7 @@ score=85
 and also `<=` means `l` if you want to use.
 
 
-### <img src="https://github.com/user-attachments/assets/e3d44903-e031-4294-be3a-5618282ffaf3" width="24" alt="jump"> Conditional Jump
+### <img src="https://github.com/user-attachments/assets/ff974a8a-517e-424b-b0de-f77539cd49e7" width="24" alt="jump"> Conditional Jump
 
 ```basic
 x=5
@@ -244,7 +242,7 @@ L skip
 G"Printed"
 ```
 
-### <img src="https://github.com/user-attachments/assets/2189c536-932b-436f-a207-4dbae2514a2a" width="24" alt="while"> While Loop
+### <img src="https://github.com/user-attachments/assets/d78f21dc-fdf1-42a6-bce3-b62fc3273604" width="24" alt="while"> While Loop
 
 ```basic
 i=0
@@ -254,7 +252,7 @@ i=0
 &
 ```
 
-### <img src="https://github.com/user-attachments/assets/014d501f-ec7f-42c4-bb54-9cc2e943374c" width="24" alt="infinite loop"> Infinite Loop
+### <img src="https://github.com/user-attachments/assets/fc86487c-e51d-4269-a978-d4d3ba4f7f94" width="24" alt="infinite loop"> Infinite Loop
 
 ```basic
 @1
@@ -262,7 +260,7 @@ i=0
 &
 ```
 
-### <img src="https://github.com/user-attachments/assets/db70bf74-352a-4d96-924b-59701a7c4c32" width="24" alt="for range"/> For‑Range Loop
+### <img src="https://github.com/user-attachments/assets/04da2a24-041d-44b7-b473-2422b46dbbd2" width="24" alt="for range"/> For‑Range Loop
 
 ```basic
 O i 0 5            # 0,1,2,3,4
@@ -274,7 +272,7 @@ O x 10 0 -2        # 10,8,6,4,2
 &
 ```
 
-### <img src="https://github.com/user-attachments/assets/610cc6f7-9b0e-475d-8214-d1956108a150" width="24" alt="switch case"> Switch / Case
+### <img src="https://github.com/user-attachments/assets/3fb974bb-df9a-43a1-95e0-cc15b953d85b" width="24" alt="switch case"> Switch / Case
 
 ```basic
 fruit="apple"
@@ -288,7 +286,7 @@ G"unknown"
 Z
 ```
 
-### <img src="https://github.com/user-attachments/assets/69071c8e-a5ef-4191-accf-39ac6bf33871" width="24" alt="lables and jumps"> Labels & Jumps
+### <img src="https://github.com/user-attachments/assets/c8185731-11df-4a17-b7c4-ed64db211937" width="24" alt="lables and jumps"> Labels & Jumps
 
 ```basic
 J end
@@ -299,7 +297,7 @@ G"Done"
 
 ---
 
-## <img src="https://github.com/user-attachments/assets/8df0efae-1ea3-480a-8521-1a831273eb4f" width="28" alt="Functions"> Functions
+## <img src="https://github.com/user-attachments/assets/38ebe561-eb9a-47c5-bff0-c5d8d778637a" width="28" alt="Functions"> Functions
 
 ```basic
 F add(a, b)
@@ -317,7 +315,7 @@ greet("World")
 
 ---
 
-## <img src="https://github.com/user-attachments/assets/5fd93dca-7f13-42a9-9079-cf73c4a8dd2e" width="28" alt="error handling"> Error Handling
+## <img src="https://github.com/user-attachments/assets/d8ef8c58-2ef7-44d0-a88e-b53019e424ab" width="28" alt="error handling"> Error Handling
 
 ```basic
 T
@@ -330,24 +328,12 @@ Y
 G"Continues..."
 ```
 
-### <img src="https://github.com/user-attachments/assets/7900697e-d035-4e6e-9855-5a962be6776b" width="24" alt="output"> Output
+### <img src="https://github.com/user-attachments/assets/831a82a9-063b-4763-838a-984a5aa48183" width="24" alt="output"> Output
 
 ```text
 Error: division by zero
 Continues...
 ```
-
----
-
-## <img src="https://github.com/user-attachments/assets/9b0ffedb-577b-4601-aaac-8991ad977136" width="28" alt="basic syntax"> Inline Commands
-
-You can write all of your commands just in a line by using `;`!!
-
-For example:
-```
-a=5;?a==5;G"yes it is!";
-```
-In a word: `; breaks each command's`
 
 ---
 
@@ -377,7 +363,7 @@ tries=tries+1
 J guess
 ```
 
-### <img src="https://github.com/user-attachments/assets/fd3b9fed-4ce3-4f57-b0df-9c8d6b92a55a" width="24" alt="factory"> Factorial
+### <img src="https://github.com/user-attachments/assets/b7a3242b-1936-465e-90cf-63a2320848dc" width="24" alt="factory"> Factorial
 
 ```basic
 F factorial(n)
@@ -392,7 +378,7 @@ G factorial(5)   # 120
 
 ---
 
-## <img src="https://github.com/user-attachments/assets/abbb437f-90ee-4ab5-a81d-9af0445dc0eb" width="28" alt="information"> Checking vul version
+## <img src="https://github.com/user-attachments/assets/968fadce-56ac-4a60-9a3e-bf8d54a152fd" width="28" alt="information"> Checking vul version
 
 To check the version of Vul you are running:
 
@@ -407,7 +393,7 @@ Vulpin 1.0.1
 
 ---
 
-# <img src="https://github.com/user-attachments/assets/c40f82cd-42a4-459f-8527-a6a5d536fa21" width="35" alt="fix"> Troubleshooting
+# <img src="https://github.com/user-attachments/assets/8f8e61bd-0bfb-43ff-a569-691c73709268" width="35" alt="fix"> Troubleshooting
 
 Let's fix your **problems**!
 
@@ -417,14 +403,14 @@ Let's fix your **problems**!
     take a look at here to see how to fix: https://github.com/orgs/community/discussions/199748
 ---
 
-## <img src="https://github.com/user-attachments/assets/64a4c9c6-0d14-4227-bb4c-4b53892c658b" width="28" alt="sotn"> Some of the *notes*
+## <img src="https://github.com/user-attachments/assets/8a34dc5a-2a5c-463f-9ab9-b2c284d035dc" width="28" alt="sotn"> Some of the *notes*
 
 - **Spaces** are optional after commands. `G"Hi"` and `G "Hi"` both work.
 - **The dot operator** (like `os.name`) works correctly in the latest release. If you encounter issues, use the `--debug` flag to see detailed parser output.
 
 ---
 
-## <img src="https://github.com/user-attachments/assets/205bbb20-10fb-47f9-a08f-025fa6ed92da" width="28" alt="licence"> License
+## <img src="https://github.com/user-attachments/assets/63cdbf04-c831-4ffe-a03d-f28c98cdd8fd" width="28" alt="licence"> License
 
 MIT LICENCE.
 CHECK OUT LICENCE.
@@ -433,10 +419,14 @@ ICONS ARE UNDER LICENCE TOO.
 ---
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2ba6b38a-1295-44e9-9c74-a4bd59697274" width="50" alt="party popper">
+  <img src="https://github.com/user-attachments/assets/36136e61-48c9-455a-a161-94e1dbb5a485" width="50" alt="party popper">
+  <h4 align="center";>Happy coding with Vulpin!</h4>
 </p>
 
-**Happy coding with Vulpin!**
+---
 
-# Sponsers:
-FluxCast
+<p align="center">Thank you:</p>
+<p align="center">
+<img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/bb83ee9f-46de-4510-ae50-653efc80b48f" />
+</p>
+
